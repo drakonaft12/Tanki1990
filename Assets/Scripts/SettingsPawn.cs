@@ -6,5 +6,7 @@ using UnityEngine;
 public class SettingsPawn : ScriptableObject
 {
     public float moveSpeed;
+    public float damage;
+    public int ID_Bullet;
 
 }

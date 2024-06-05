@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  damage: 5
+  ID_Bullet: 0
