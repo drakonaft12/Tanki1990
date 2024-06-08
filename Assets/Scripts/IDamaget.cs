@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IDamaget
 {
-    public void Damage(Vector2 pointDamage, float damage);
+    public void Damage(Vector2 pointDamage,Vector2 normal, int damage);
 }

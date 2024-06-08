@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class ActionBehavior : MonoBehaviour
 {
     int ID_Bullet;
-    float _damage;
+    int _damage;
     Vector2 _move = Vector2.up;
     Spawner _spawner;
 
@@ -20,7 +20,7 @@ public class ActionBehavior : MonoBehaviour
 
     public void Fire()
     {
-        _spawner.Spawn(ID_Bullet,transform.position+ (Vector3)_move).GetComponent<Bullet>().Create(_move,_damage);
+        _spawner.Spawn(ID_Bullet,transform.position+ (Vector3)_move*0.5f).GetComponent<Bullet>().Create(_move,_damage);
     }
 
 }
