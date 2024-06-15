@@ -21,3 +21,6 @@ MonoBehaviour:
   - y: 01010101
   - y: 01010101
   size: 0.25
+  layer:
+    serializedVersion: 2
+    m_Bits: 1

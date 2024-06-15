@@ -79,6 +79,14 @@ public class Plane : MonoBehaviour, IDamaget
         valueOfY = såtting.sizeVox.y;
         _size = såtting.size;
         _renderer.material = såtting.material;
+        var layerValue = såtting.layer.value;
+        int layerID = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            if(layerValue%2==1) { layerID = i; break; }
+            layerValue = layerValue >> 1;
+        }
+        gameObject.layer = layerID;
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
         for (int j = 0; j < valueOfY; j++)

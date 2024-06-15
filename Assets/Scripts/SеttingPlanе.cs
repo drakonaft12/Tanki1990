@@ -9,6 +9,7 @@ public class SеttingPlanе : ScriptableObject
     public Vector2Int sizeVox = new Vector2Int(4,4);
     public Y[] x;
     public float size = 0.25f;
+    public LayerMask layer;
 
     int _x, _y;
 
