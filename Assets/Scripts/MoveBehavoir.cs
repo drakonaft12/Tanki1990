@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -23,6 +24,7 @@ public class MoveBehavoir : MonoBehaviour
         _rotation = transform.rotation = Quaternion.identity;
         _position = transform.position;
         Move();
+        
     }
 
     private void Move()
@@ -30,6 +32,7 @@ public class MoveBehavoir : MonoBehaviour
         Thread thread = new Thread(MoveCalculate);
         thread.Start();
     }
+
 
     private void MoveCalculate()
     {

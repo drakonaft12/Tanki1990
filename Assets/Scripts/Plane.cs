@@ -10,111 +10,167 @@ public class Plane : MonoBehaviour, IDamaget
     PolygonCollider2D _collider;
 
     List<Vector3> vertieces;
-    
     List<Vector2> uvs;
-    List<int> triangles;
+    List<int> triangles; 
+
     Dictionary<Vector2Int, Vector2> localPointBlocks;
 
     int valueOfX = 4;
     int valueOfY = 4;
     float _size = 0.25f;
+    int _damageArmor = 5;
+    bool _isUpdat = false;
 
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
     {
-        Vector2 k = pointDamage - normal * _size / 2 - (Vector2)transform.position;
-        List<Vector2Int> v = new List<Vector2Int>();
-        if (normal.x != 0)
+        if (damage >= _damageArmor)
         {
-            foreach (var item in localPointBlocks)
+            Vector2 k = pointDamage - normal * _size / 2 - (Vector2)transform.position;
+            List<Vector2Int> v = new List<Vector2Int>();
+            if (normal.x != 0)
             {
-                if(Math.Abs( item.Value.x - k.x)< _size / 1.5f)
+                foreach (var item in localPointBlocks)
                 {
-                    if(Math.Abs(item.Value.y - k.y)< _size * 2)
+                    if (Math.Abs(item.Value.x - k.x) < _size / 1.5f)
                     {
-                        v.Add(item.Key);
+                        if (Math.Abs(item.Value.y - k.y) < _size * 2)
+                        {
+                            v.Add(item.Key);
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                foreach (var item in localPointBlocks)
+                {
+                    if (Math.Abs(item.Value.y - k.y) < _size / 1.5f)
+                    {
+                        if (Math.Abs(item.Value.x - k.x) < _size * 2)
+                        {
+                            v.Add(item.Key);
+                        }
                     }
                 }
             }
 
-        }
-        else
-        {
-            foreach (var item in localPointBlocks)
-            {
-                if (Math.Abs(item.Value.y - k.y) < _size / 1.5f)
-                {
-                    if (Math.Abs(item.Value.x - k.x) < _size * 2)
-                    {
-                        v.Add(item.Key);
-                    }
-                }
-            }
-        }
 
-        
-        foreach (var item in v)
-        {
-            Debug.Log(item);
-            DeletePix(item.x, item.y);
+            foreach (var item in v)
+            {
+                DeleteVox(item.x, item.y);
+            }
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _filter = GetComponent<MeshFilter>();
         _renderer = GetComponent<MeshRenderer>();
         _collider = GetComponent<PolygonCollider2D>();
 
-        PaintMesh(_size);
+
+        transform.position = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
     }
 
-    private void PaintMesh(float foot)
+    public void Create(SåttingPlanå såtting)
     {
-        Mesh mesh = new Mesh();
-        vertieces = new List<Vector3>();
-        _collider.pathCount = (valueOfY * valueOfY + valueOfX);
-        uvs = new List<Vector2>();
-        triangles = new List<int>();
+        valueOfX = såtting.sizeVox.x;
+        valueOfY = såtting.sizeVox.y;
+        _size = såtting.size;
+        _renderer.material = såtting.material;
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
-
-        var ix = valueOfX * foot / 2;
-        var iy = valueOfY * foot / 2;
 
         for (int j = 0; j < valueOfY; j++)
         {
             for (int i = 0; i < valueOfX; i++)
             {
-                var vertiecesColliders = new Vector2[4];
+                if (såtting.x[i].y[j])
+                localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size, 
+                                                                               (j - valueOfY / 2 + 0.5f) * _size));
+            }
+        }
 
-                vertieces.Add(new Vector3(i * foot - ix, j * foot - iy));
-                vertieces.Add(new Vector3(i * foot - ix, foot + j * foot - iy));
-                vertieces.Add(new Vector3(foot + i * foot - ix, foot + j * foot - iy));
-                vertieces.Add(new Vector3(foot + i * foot - ix, j * foot - iy));
+                PaintMesh(_size);
+    }
 
-                vertiecesColliders[0]= new Vector2(i * foot - ix, j * foot - iy);
-                vertiecesColliders[1] = new Vector2(i * foot - ix, foot + j * foot - iy);
-                vertiecesColliders[2] = new Vector2(foot + i * foot - ix, foot + j * foot - iy);
-                vertiecesColliders[3] = new Vector2(foot + i * foot - ix, j * foot - iy);
+    private void PaintMesh(float foot)
+    {
+        _isUpdat = true;
+        Mesh mesh = new Mesh();
+        vertieces = new List<Vector3>();
+        _collider.pathCount = (valueOfY * valueOfY + valueOfX);
+        uvs = new List<Vector2>();
+        triangles = new List<int>();
 
-                uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2)));
-                uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2 + 1)));
-                uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2 + 1)));
-                uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2)));
+        var ix = valueOfX * foot / 2;
+        var iy = valueOfY * foot / 2;
+        for (int j = 0; j < valueOfY; j++)
+        {
+            for (int i = 0; i < valueOfX; i++)
+            {
+                if (!localPointBlocks.TryGetValue(new Vector2Int(i+1, j+1), out var vector))
+                {
+                    var vertiecesColliders = new Vector2[3];
 
-                int index = (j * valueOfY + i);
+                    vertieces.Add(Vector2.zero);
+                    vertieces.Add(Vector2.zero);
+                    vertieces.Add(Vector2.zero);
+                    vertieces.Add(Vector2.zero);
 
-                triangles.Add(index * 4);
-                triangles.Add(1 + index * 4);
-                triangles.Add(2 + index * 4);
+                    vertiecesColliders[0] = Vector2.zero;
+                    vertiecesColliders[1] = Vector2.zero;
+                    vertiecesColliders[2] = Vector2.zero;
+                   
+                    uvs.Add(Vector2.zero);
+                    uvs.Add(Vector2.zero);
+                    uvs.Add(Vector2.zero);
+                    uvs.Add(Vector2.zero);
 
-                triangles.Add(index * 4);
-                triangles.Add(2 + index * 4);
-                triangles.Add(3 + index * 4);
+                    int index = (j * valueOfY + i);
 
-                localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2(i * foot - ix + foot / 2, j * foot - iy + foot / 2));
+                    triangles.Add(index * 4);
+                    triangles.Add(1 + index * 4);
+                    triangles.Add(2 + index * 4);
 
-                _collider.SetPath(index, vertiecesColliders);
+                    triangles.Add(index * 4);
+                    triangles.Add(2 + index * 4);
+                    triangles.Add(3 + index * 4);
+
+                    _collider.SetPath(index, vertiecesColliders);
+                }
+                else
+                {
+                    var vertiecesColliders = new Vector2[4];
+
+                    vertieces.Add(new Vector3(i * foot - ix, j * foot - iy));
+                    vertieces.Add(new Vector3(i * foot - ix, foot + j * foot - iy));
+                    vertieces.Add(new Vector3(foot + i * foot - ix, foot + j * foot - iy));
+                    vertieces.Add(new Vector3(foot + i * foot - ix, j * foot - iy));
+
+                    vertiecesColliders[0] = new Vector2(i * foot - ix, j * foot - iy);
+                    vertiecesColliders[1] = new Vector2(i * foot - ix, foot + j * foot - iy);
+                    vertiecesColliders[2] = new Vector2(foot + i * foot - ix, foot + j * foot - iy);
+                    vertiecesColliders[3] = new Vector2(foot + i * foot - ix, j * foot - iy);
+
+                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2)));
+                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2 + 1)));
+                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2 + 1)));
+                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2)));
+
+                    int index = (j * valueOfY + i);
+
+                    triangles.Add(index * 4);
+                    triangles.Add(1 + index * 4);
+                    triangles.Add(2 + index * 4);
+
+                    triangles.Add(index * 4);
+                    triangles.Add(2 + index * 4);
+                    triangles.Add(3 + index * 4);
+
+                    _collider.SetPath(index, vertiecesColliders);
+                }
+                
             }
         }
         mesh.SetVertices(vertieces);
@@ -125,7 +181,7 @@ public class Plane : MonoBehaviour, IDamaget
         
     }
 
-    private void DeletePix(int x, int y)
+    private void DeleteVox(int x, int y)
     {
         int i = ((y - 1) * valueOfY + (x - 1)) * 4;
         vertieces[i] = Vector2.zero;
@@ -133,7 +189,7 @@ public class Plane : MonoBehaviour, IDamaget
         vertieces[i+2] = Vector2.zero;
         vertieces[i+3] = Vector2.zero;
 
-        Vector2[] g = new Vector2[3] {new Vector2(), new Vector2(), new Vector2() };
+        Vector2[] g = new Vector2[3] { Vector2.zero, Vector2.zero, Vector2.zero };
         _collider.SetPath(i / 4, g);
 
         uvs[i] = Vector2.zero;
@@ -150,8 +206,10 @@ public class Plane : MonoBehaviour, IDamaget
     // Update is called once per frame
     void Update()
     {
+        if(_isUpdat)
         if(localPointBlocks.Count == 0)
         {
+                _isUpdat = false;
             gameObject.SetActive(false);
         }
 

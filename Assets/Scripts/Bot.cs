@@ -12,7 +12,7 @@ public class Bot : MonoBehaviour
     bool isWork = true;
     Vector2 _move;
     Vector3 _position;
-    // Start is called before the first frame update
+    float t = 0;
     void Start()
     {
         Create();
@@ -28,10 +28,11 @@ public class Bot : MonoBehaviour
 
     private async void IsStop()
     {
+
         while (isWork)
         {
             if (Random.Range(0, 5) == 0) { _player.Fire(); }
-            if (_position == transform.position)
+            if (_position == transform.position || t > Random.Range(1,5))
             {
                 int i = Random.Range(-1, 2);
                 switch (i)
@@ -48,6 +49,7 @@ public class Bot : MonoBehaviour
                         _move = -new Vector2(_move.y, _move.x);
                         break;
                 }
+                t = 0;
             }
             _position = transform.position;
             await Task.Delay(500);
@@ -63,5 +65,6 @@ public class Bot : MonoBehaviour
     void Update()
     {
             _player.MovePawn = _move;
+        t += Time.deltaTime;
     }
 }

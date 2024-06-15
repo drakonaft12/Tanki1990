@@ -25,8 +25,10 @@ public class Player : MonoBehaviour, IDamaget
         _actionBehavior.Create(settings, spawner);
 
         HP = 5;
-
+       
         _spawner = spawner;
+
+
     }
 
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
