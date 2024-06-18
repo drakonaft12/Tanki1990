@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644f069abc3b5b143adb9ddf7d1a7de0, type: 3}
   m_Name: "New S\u0435tting Plan\u0435"
   m_EditorClassIdentifier: 
-  material: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   damage: 5
   sizeVox: {x: 4, y: 4}
   x:

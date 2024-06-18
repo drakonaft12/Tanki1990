@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        
+
         dictionaryPrefabs = prefabs.returnDictionary();
         foreach (var item in prefabs.items)
         {
@@ -33,10 +33,29 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            item = Instantiate(dictionaryPrefabs[ID], position,new Quaternion());
-            item.transform.parent = transform;
+            item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
+            item.transform.SetParent(transform);
             allSpawnObjects[ID].Add(item);
             return item;
+        }
+    }
+
+    public T Spawn<T>(int ID, Vector3 position)
+    {
+        //todo ÍÀéòè ëó÷øå find
+        GameObject item = allSpawnObjects[ID].Find((value) => !value.activeSelf);
+        if (item != null)
+        {
+            item.SetActive(true);
+            item.transform.position = position;
+            return item.GetComponent<T>();
+        }
+        else
+        {
+            item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
+            item.transform.SetParent(transform);
+            allSpawnObjects[ID].Add(item);
+            return item.GetComponent<T>();
         }
     }
 
@@ -49,7 +68,7 @@ public class Spawner : MonoBehaviour
     {
         gameObject.SetActive(false);
         //Path.Combine();
-        
+
     }
 
     public void DestroyGameObject(GameObject gameObject)
@@ -66,12 +85,12 @@ public class Spawner : MonoBehaviour
 public struct Diction<Tkey, Tvalue>
 {
     public List<DictionItem<Tkey, Tvalue>> items;
-    
 
-    
-    public Dictionary<Tkey,Tvalue> returnDictionary()
+
+
+    public Dictionary<Tkey, Tvalue> returnDictionary()
     {
-        Dictionary<Tkey, Tvalue> value = new Dictionary<Tkey,Tvalue>();
+        Dictionary<Tkey, Tvalue> value = new Dictionary<Tkey, Tvalue>();
         foreach (var item in items)
         {
             value.Add(item.key, item.value);
@@ -81,7 +100,7 @@ public struct Diction<Tkey, Tvalue>
 }
 
 [Serializable]
-public struct DictionItem<Tkey,Tvalue>
+public struct DictionItem<Tkey, Tvalue>
 {
     public Tkey key;
     public Tvalue value;
