@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Spawner : MonoBehaviour
 {
@@ -93,10 +95,12 @@ public struct Diction<Tkey, Tvalue>
         Dictionary<Tkey, Tvalue> value = new Dictionary<Tkey, Tvalue>();
         foreach (var item in items)
         {
+
             value.Add(item.key, item.value);
         }
         return value;
     }
+
 }
 
 [Serializable]

@@ -10,7 +10,8 @@ public class PlaneRedactor : MonoBehaviour
     MeshRenderer _renderer;
     Vector3 _position;
     Dictionary<Vector2Int, Vector2> localPointBlocks;
-    
+
+    public SettingPlaneWWW Setting => _såtting;
     private void Awake()
     {
         _filter = GetComponent<MeshFilter>();
@@ -18,10 +19,10 @@ public class PlaneRedactor : MonoBehaviour
     }
     public void Create(SåttingPlanå såtting) 
     {
-        _såtting = såtting.ToWWW();
+        _position = transform.position;
+        _såtting = såtting.ToWWW(_position);
         _renderer.material = såtting.material;
         transform.localScale = new Vector3(såtting.size*såtting.sizeVox.x, såtting.size * såtting.sizeVox.y, 1);
-        _position = transform.position;
 
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
@@ -36,9 +37,30 @@ public class PlaneRedactor : MonoBehaviour
         }
         PaintMesh(såtting.sizeVox.x, såtting.sizeVox.y, såtting.size);
     }
+
+    public void CreateWWW(SettingPlaneWWW såtting,Material material)
+    {
+        _position = transform.position;
+        _såtting = såtting;
+        _renderer.material = material;
+        transform.localScale = new Vector3(såtting.size * såtting.sizeVoxX, såtting.size * såtting.sizeVoxY, 1);
+
+        localPointBlocks = new Dictionary<Vector2Int, Vector2>();
+
+        for (int j = 0; j < såtting.sizeVoxY; j++)
+        {
+            for (int i = 0; i < såtting.sizeVoxX; i++)
+            {
+                if (såtting.x[i].y[j])
+                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - såtting.sizeVoxX / 2 + 0.5f) * såtting.size,
+                                                                                   (j - såtting.sizeVoxY / 2 + 0.5f) * såtting.size));
+            }
+        }
+        PaintMesh(såtting.sizeVoxX, såtting.sizeVoxY, såtting.size);
+    }
     private void Update()
     {
-        _renderer.material = _såtting.material;
+        /*_renderer.material = _såtting.material;
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
         for (int j = 0; j < _såtting.sizeVox.y; j++)
@@ -50,7 +72,7 @@ public class PlaneRedactor : MonoBehaviour
                                                                                    (j - _såtting.sizeVox.y / 2 + 0.5f) * _såtting.size));
             }
         }
-        PaintMesh(_såtting.sizeVox.x, _såtting.sizeVox.y, _såtting.size);
+        PaintMesh(_såtting.sizeVox.x, _såtting.sizeVox.y, _såtting.size);*/
     }
     private void PaintMesh(int valueOfX, int valueOfY,  float foot)
     {
