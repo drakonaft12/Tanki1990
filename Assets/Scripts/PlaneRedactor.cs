@@ -131,10 +131,10 @@ public class PlaneRedactor : MonoBehaviour
                     vertiecesColliders[2] = new Vector2(foot + i * foot - ix, foot + j * foot - iy);
                     vertiecesColliders[3] = new Vector2(foot + i * foot - ix, j * foot - iy);
 
-                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2)));
-                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2 + 1)));
-                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2 + 1)));
-                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2)));
+                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4)));
+                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4 + 1)));
+                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4 + 1)));
+                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4)));
 
                     int index = (j * valueOfY + i);
 

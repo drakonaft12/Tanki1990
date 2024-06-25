@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using static SåttingPlanå;
 
 public class Redactor : MonoBehaviour
 {
@@ -53,14 +54,14 @@ public class Redactor : MonoBehaviour
                         if (planes[i][j] == null)
                         {
                             planes[i][j] = _spawner.Spawn<PlaneRedactor>(0, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].CreateWWW(item, _såtting.GetMaterial(item.materialID));
+                            planes[i][j].CreateWWW(item, SåttingPlanå.GetMaterial(item.materialID));
                             Debug.Log(new Vector3(item.positionX, item.positionY));
                         }
                         else
                         {
                             planes[i][j].gameObject.SetActive(false);
                             planes[i][j] = _spawner.Spawn<PlaneRedactor>(0, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].CreateWWW(item, _såtting.GetMaterial(item.materialID));
+                            planes[i][j].CreateWWW(item, SåttingPlanå.GetMaterial(item.materialID));
                             Debug.Log(new Vector3(item.positionX, item.positionY));
                         }
 
@@ -87,7 +88,7 @@ public class Redactor : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            var v = Vector3Int.CeilToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Vector3.one * 0.5f);
+            var v = Vector3Int.CeilToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Vector3.one * 0.5f) ;
             v -= Vector3Int.forward * v.z;
             Vector3Int vector = Vector3Int.right * (size.x / 2) + Vector3Int.up * (size.y / 2) + v;
             if (vector.x >= 0 && vector.y >= 0 && vector.x < size.x && vector.y < size.y)

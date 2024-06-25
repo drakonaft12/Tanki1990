@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -12,23 +14,25 @@ public class SеttingPlanе : ScriptableObject
     public float size = 0.25f;
     public LayerMask layer;
 
-    [SerializeField] Diction<int, Material> materials;
+    [SerializeField] List<Material> materials;
 
-    public Material GetMaterial(int id)
-    {
-        materials.returnDictionary().TryGetValue(id, out var material);
-        return material;
+    static SеttingPlanе sеtting;
+
+    public static Material GetMaterial(int id)
+    { 
+        return sеtting.materials[id];
     }
     public SettingPlaneWWW ToWWW(Vector2 position)
     {
         SettingPlaneWWW setting = new SettingPlaneWWW();
         setting.positionX = (int)position.x;
         setting.positionY = (int)position.y;
-        foreach (var item in materials.returnDictionary())
+        for (int i = 0; i < materials.Count; i++)
         {
-            if(item.Value == material)
+            if (materials[i] == material)
             {
-                setting.materialID = item.Key;
+                setting.materialID = i;
+                break;
             }
         }
 
@@ -53,6 +57,7 @@ public class SеttingPlanе : ScriptableObject
 
     private void OnEnable()
     {
+        if (sеtting == null) sеtting = this;
         x = new Y[sizeVox.x];
         for (int i = 0; i < sizeVox.x; i++)
         {
@@ -102,5 +107,4 @@ public struct SettingPlaneWWW
     public Y[] x;
     public float size;
     public int layer;
-
 }

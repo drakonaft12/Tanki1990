@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5752821284196312903}
   - component: {fileID: 6107761419404240255}
   - component: {fileID: 7946552032752429480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TankBot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

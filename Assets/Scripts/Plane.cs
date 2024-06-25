@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static SåttingPlanå;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(PolygonCollider2D))]
 public class Plane : MonoBehaviour, IDamaget
@@ -14,6 +15,8 @@ public class Plane : MonoBehaviour, IDamaget
     List<int> triangles; 
 
     Dictionary<Vector2Int, Vector2> localPointBlocks;
+
+    public SettingPlaneWWW settingPlaneWWW;
 
     int valueOfX = 4;
     int valueOfY = 4;
@@ -79,6 +82,7 @@ public class Plane : MonoBehaviour, IDamaget
         valueOfY = såtting.sizeVox.y;
         _size = såtting.size;
         _renderer.material = såtting.material;
+        _damageArmor = såtting.damage;
         var layerValue = såtting.layer.value;
         int layerID = 0;
         for (int i = 0; i < 32; i++)
@@ -100,6 +104,37 @@ public class Plane : MonoBehaviour, IDamaget
         }
 
                 PaintMesh(_size);
+    }
+
+    public void Create(SettingPlaneWWW såtting)
+    {
+        settingPlaneWWW = såtting;
+        valueOfX = såtting.sizeVoxX;
+        valueOfY = såtting.sizeVoxY;
+        _size = såtting.size;
+        _renderer.material = SåttingPlanå.GetMaterial(såtting.materialID);
+        _damageArmor = såtting.damage;
+        var layerValue = såtting.layer;
+        int layerID = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            if (layerValue % 2 == 1) { layerID = i; break; }
+            layerValue = layerValue >> 1;
+        }
+        gameObject.layer = layerID;
+        localPointBlocks = new Dictionary<Vector2Int, Vector2>();
+
+        for (int j = 0; j < valueOfY; j++)
+        {
+            for (int i = 0; i < valueOfX; i++)
+            {
+                if (såtting.x[i].y[j])
+                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size,
+                                                                                   (j - valueOfY / 2 + 0.5f) * _size));
+            }
+        }
+
+        PaintMesh(_size);
     }
 
     private void PaintMesh(float foot)
@@ -161,10 +196,10 @@ public class Plane : MonoBehaviour, IDamaget
                     vertiecesColliders[2] = new Vector2(foot + i * foot - ix, foot + j * foot - iy);
                     vertiecesColliders[3] = new Vector2(foot + i * foot - ix, j * foot - iy);
 
-                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2)));
-                    uvs.Add(new Vector2(0.5f * (i % 2), 0.5f * (j % 2 + 1)));
-                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2 + 1)));
-                    uvs.Add(new Vector2(0.5f * (i % 2 + 1), 0.5f * (j % 2)));
+                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4)));
+                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4 + 1)));
+                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4 + 1)));
+                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4)));
 
                     int index = (j * valueOfY + i);
 

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6653227529714075830}
   - component: {fileID: 2624081368789245465}
   - component: {fileID: 7845150319080703795}
-  - component: {fileID: 8739120007490811568}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -147,16 +146,3 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 1
---- !u!114 &8739120007490811568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2602274448971409137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7803d1bed6e886f47b9ead1166575b59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  "s\u0435tting": {fileID: 11400000, guid: 1244126ca7fc6e84e9b47e632d69bef6, type: 2}

@@ -13,6 +13,8 @@ public class PlanTst : MonoBehaviour
         plane.Create(såtting);
     }
 
+
+
     // Update is called once per frame
     void Update()
     {

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644f069abc3b5b143adb9ddf7d1a7de0, type: 3}
   m_Name: "New S\u0435tting Plan\u0435"
   m_EditorClassIdentifier: 
-  material: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-  damage: 5
+  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  damage: 20
   sizeVox: {x: 4, y: 4}
   x:
   - y: 01010101
@@ -23,10 +23,9 @@ MonoBehaviour:
   size: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 16
   materials:
-    items:
-    - key: 0
-      value: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-    - key: 1
-      value: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 01281e5bdd9119549b28e8d159f4c651, type: 2}
+  - {fileID: 2100000, guid: 303ec15f3ec48d54abf4c8a5d41beea9, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}

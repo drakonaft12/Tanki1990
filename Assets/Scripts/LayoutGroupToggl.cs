@@ -25,7 +25,7 @@ public class LayoutGroupToggl : MonoBehaviour
                 AddToggle(Vector2Int.right * i + Vector2Int.up * j);
             }
         }
-        (layout as GridLayoutGroup).cellSize = new Vector2(280 / vector.x - 20, 280 / vector.y - 20);
+        (layout as GridLayoutGroup).cellSize = new Vector2((transform as RectTransform).sizeDelta.x / vector.x, (transform as RectTransform).sizeDelta.y / vector.y);
         (layout as GridLayoutGroup).constraintCount = vector.x;
     }
     private void DeleteAllToggle()
