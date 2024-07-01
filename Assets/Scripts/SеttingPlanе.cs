@@ -13,8 +13,10 @@ public class SеttingPlanе : ScriptableObject
     public Y[] x;
     public float size = 0.25f;
     public LayerMask layer;
+    public GameObject Object;
 
     [SerializeField] List<Material> materials;
+    [SerializeField] List<GameObject> objects;
 
     static SеttingPlanе sеtting;
 
@@ -22,16 +24,30 @@ public class SеttingPlanе : ScriptableObject
     { 
         return sеtting.materials[id];
     }
+    public static GameObject GetObject(int id)
+    {
+        return sеtting.objects[id];
+    }
     public SettingPlaneWWW ToWWW(Vector2 position)
     {
         SettingPlaneWWW setting = new SettingPlaneWWW();
         setting.positionX = (int)position.x;
         setting.positionY = (int)position.y;
+        setting.materialID = -1;
         for (int i = 0; i < materials.Count; i++)
         {
             if (materials[i] == material)
             {
                 setting.materialID = i;
+                break;
+            }
+        }
+        setting.objectID = -1;
+        for (int i = 0; i < objects.Count; i++)
+        {
+            if (objects[i] == Object)
+            {
+                setting.objectID = i;
                 break;
             }
         }
@@ -101,6 +117,7 @@ public struct SettingPlaneWWW
     public int positionX;
     public int positionY;
     public int materialID;
+    public int objectID;
     public int damage;
     public int sizeVoxX;
     public int sizeVoxY;

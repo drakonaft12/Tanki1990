@@ -10,7 +10,7 @@ public class PlanTst : MonoBehaviour
     private void Start()
     {
         plane = GetComponent<Plane>();
-        plane.Create(såtting);
+        //plane.Create(såtting);
     }
 
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static SåttingPlanå;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(PolygonCollider2D))]
 public class Plane : MonoBehaviour, IDamaget
@@ -106,7 +105,7 @@ public class Plane : MonoBehaviour, IDamaget
                 PaintMesh(_size);
     }
 
-    public void Create(SettingPlaneWWW såtting)
+    public void Create(SettingPlaneWWW såtting, Spawner spawner)
     {
         settingPlaneWWW = såtting;
         valueOfX = såtting.sizeVoxX;
@@ -122,19 +121,32 @@ public class Plane : MonoBehaviour, IDamaget
             layerValue = layerValue >> 1;
         }
         gameObject.layer = layerID;
-        localPointBlocks = new Dictionary<Vector2Int, Vector2>();
-
-        for (int j = 0; j < valueOfY; j++)
+        if (såtting.objectID != -1) 
         {
-            for (int i = 0; i < valueOfX; i++)
+            Debug.Log(såtting.objectID);
+            var s = spawner.Spawn(SåttingPlanå.GetObject(såtting.objectID), transform.position);
+            if(s.TryGetComponent<ISetSpawner>(out var set))
             {
-                if (såtting.x[i].y[j])
-                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size,
-                                                                                   (j - valueOfY / 2 + 0.5f) * _size));
+                set.SetSpawner = spawner;
             }
+            gameObject.SetActive(false);
         }
+        else
+        {
+            localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
-        PaintMesh(_size);
+            for (int j = 0; j < valueOfY; j++)
+            {
+                for (int i = 0; i < valueOfX; i++)
+                {
+                    if (såtting.x[i].y[j])
+                        localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size,
+                                                                                       (j - valueOfY / 2 + 0.5f) * _size));
+                }
+            }
+
+            PaintMesh(_size);
+        }
     }
 
     private void PaintMesh(float foot)

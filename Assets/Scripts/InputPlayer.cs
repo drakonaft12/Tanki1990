@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputPlayer : MonoBehaviour
+public class InputPlayer : MonoBehaviour,ISetSpawner
 {
     [SerializeField] SettingsPawn _settingsPawn;
     [SerializeField] Player _player;
     [SerializeField] Spawner _spawner;
+
+    public Spawner SetSpawner { set => _spawner = value; }
+
     void Start()
     {
         _player.Craete(_settingsPawn, _spawner);

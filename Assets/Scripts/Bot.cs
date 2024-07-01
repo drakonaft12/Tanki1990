@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public class Bot : MonoBehaviour
+public class Bot : MonoBehaviour,ISetSpawner
 {
     [SerializeField] SettingsPawn _settingsPawn;
     [SerializeField] Player _player;
@@ -13,6 +13,7 @@ public class Bot : MonoBehaviour
     Vector2 _move;
     Vector3 _position;
     float t = 0;
+    public Spawner SetSpawner { set { _spawner = value; } }
     void Start()
     {
         Create();

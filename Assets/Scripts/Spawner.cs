@@ -42,6 +42,30 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public GameObject Spawn(GameObject gameObject, Vector3 position)
+    {
+        //todo Ќјйти лучше find
+        int ID = -1;
+        foreach (var item1 in dictionaryPrefabs)
+        {
+            if(item1.Value == gameObject) ID = item1.Key;
+        }
+        GameObject item = allSpawnObjects[ID].Find((value) => !value.activeSelf);
+        if (item != null)
+        {
+            item.SetActive(true);
+            item.transform.position = position;
+            return item;
+        }
+        else
+        {
+            item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
+            item.transform.SetParent(transform);
+            allSpawnObjects[ID].Add(item);
+            return item;
+        }
+    }
+
     public T Spawn<T>(int ID, Vector3 position)
     {
         //todo Ќјйти лучше find

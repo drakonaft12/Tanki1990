@@ -23,9 +23,15 @@ MonoBehaviour:
   size: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 0
+  Object: {fileID: 0}
   materials:
   - {fileID: 2100000, guid: 01281e5bdd9119549b28e8d159f4c651, type: 2}
   - {fileID: 2100000, guid: 303ec15f3ec48d54abf4c8a5d41beea9, type: 2}
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 22262639920f43d6be32430e4e58350d, type: 2}
+  objects:
+  - {fileID: 1148595170478516072, guid: 6a16e754c1a872c439f35c5e879d37ce, type: 3}
+  - {fileID: 45100862117072815, guid: 288861d5637dc264d95440bc685b8d9c, type: 3}
