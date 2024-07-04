@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
@@ -18,16 +19,16 @@ public class SpawnMap : MonoBehaviour
         save = new DataSave();
         saveAllBlock = new SaveAllBlock();
         saveAllBlock.settingBlocks = new List<SettingPlaneWWW>();
-
-        Load();
+        
+        Load(PlayerPrefs.GetString("LoadMap"));
     }
 
     [ContextMenu("Load")]
-    void Load()
+    void Load(string nameMap)
     {
         var s = new SaveAllBlock();
         s.settingBlocks = new List<SettingPlaneWWW>();
-        save.LoadGame(ref s, "TestMap");
+        save.LoadGame(ref s, nameMap);
         saveAllBlock.settingBlocks.Clear();
         saveAllBlock.settingBlocks.AddRange(s.settingBlocks);
         saveAllBlock.sizeCamera = Camera.main.orthographicSize = s.sizeCamera;
@@ -61,6 +62,14 @@ public class SpawnMap : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Redactor");
         }
     }
 }

@@ -11,7 +11,7 @@ public class DataSave
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath
-          + $"/{name}.map");
+          + $"/Maps/{name}.map");
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Game data saved!");
@@ -19,12 +19,12 @@ public class DataSave
     public void LoadGame<T>(ref T data, string name)
     {
         if (File.Exists(Application.persistentDataPath
-          + $"/{name}.map"))
+          + $"/Maps/{name}.map"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file =
               File.Open(Application.persistentDataPath
-              + $"/{name}.map", FileMode.Open);
+              + $"/Maps/{name}.map", FileMode.Open);
             data = (T)bf.Deserialize(file);
             file.Close();
 
@@ -33,13 +33,30 @@ public class DataSave
         else
             Debug.LogError("There is no save data!");
     }
+
+    public List<string> GetNameMaps()
+    {
+        List<string> maps = new List<string>();
+        DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath + "/Maps/");
+        Directory.CreateDirectory(Application.persistentDataPath + "/Maps/");
+        FileInfo[] info = dir.GetFiles("*.*");
+        foreach (FileInfo f in info)
+        {
+            if (f.Extension == ".map")
+            {
+                var t = f.Name;
+                maps.Add(t.Remove(t.Length - 4));
+            }
+        }
+        return maps;
+    }
     public void DeleteData<T>(string name)
     {
         if (File.Exists(Application.persistentDataPath
-          + $"/{name}.map"))
+          + $"/Maps/{name}.map"))
         {
             File.Delete(Application.persistentDataPath
-              + $"/{name}.map");
+              + $"/Maps/{name}.map");
 
             Debug.Log("Data reset complete!");
         }

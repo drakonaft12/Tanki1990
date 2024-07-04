@@ -1,7 +1,10 @@
 
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Redactor : MonoBehaviour
@@ -13,6 +16,12 @@ public class Redactor : MonoBehaviour
     [SerializeField] TMP_InputField inputX;
     [SerializeField] TMP_InputField inputY;
 
+    [SerializeField] TMP_Dropdown dropdownMaps;
+    [SerializeField] TMP_InputField AddMap;
+
+    string _activeMap = "TestMap";
+    List<string> _allMap;
+
     SaveAllBlock saveAllBlock;
 
     DataSave save;
@@ -22,8 +31,17 @@ public class Redactor : MonoBehaviour
     void Start()
     {
         save = new DataSave();
+        _allMap = new List<string>();
+        dropdownMaps.options.Clear();
         saveAllBlock = new SaveAllBlock();
         saveAllBlock.settingBlocks = new List<SettingPlaneWWW>();
+        _allMap = save.GetNameMaps();
+        foreach (var item in _allMap)
+        {
+            dropdownMaps.options.Add(new TMP_Dropdown.OptionData(item));
+        }
+        _activeMap = dropdownMaps.options[0].text;
+        dropdownMaps.captionText.text = _activeMap;
         UpdatePole();
     }
 
@@ -32,44 +50,68 @@ public class Redactor : MonoBehaviour
         inputX.text = size.x.ToString();
         inputY.text = size.y.ToString();
         Camera.main.orthographicSize = Mathf.Max(8f / 19f * size.x, 8f / 15f * size.y);
-        if (planes != null)
-            for (int j = 0; j < planes.Length; j++)
-            {
-                if (planes[j] != null)
-                    for (int i = 0; i < planes[j].Length; i++)
-                    {
-                        if (planes[j][i] != null)
-                            planes[j][i].gameObject.SetActive(false);
-                    }
-            }
-        planes = new PlaneRedactor[size.x][];
-        for (int i = 0; i < size.x; i++)
+        if (saveAllBlock.sizePoleX != size.x || saveAllBlock.sizePoleY != size.y)
         {
-            planes[i] = new PlaneRedactor[size.y];
+            saveAllBlock.sizePoleX = size.x;
+            saveAllBlock.sizePoleY = size.y;
+            saveAllBlock.sizeCamera = Camera.main.orthographicSize;
+            var p = new PlaneRedactor[size.x][];
+            for (int i = 0; i < size.x; i++)
+            {
+                p[i] = new PlaneRedactor[size.y];
+            }
+
+            if (planes != null)
+                for (int j = 0; j < planes.Length; j++)
+                {
+                    if (planes[j] != null)
+                        for (int i = 0; i < planes[j].Length; i++)
+                        {
+                            if (planes[j][i] != null)
+                                if (((j >= size.x) || (i >= size.y)))
+                                {
+                                    saveAllBlock.settingBlocks.Remove(planes[j][i].Setting);
+                                    planes[j][i].gameObject.SetActive(false);
+                                    planes[j][i] = null;
+                                }
+                                else
+                                {
+                                    p[j][i] = planes[j][i];
+                                    p[j][i].gameObject.transform.position -= Vector3Int.right * Mathf.CeilToInt((size.x - planes.Length) / 2f) + Vector3Int.up * Mathf.CeilToInt((size.y - planes[j].Length) / 2f);
+                                    saveAllBlock.settingBlocks.Remove(planes[j][i].Setting);
+                                    p[j][i].UpdatePosition();
+                                    saveAllBlock.settingBlocks.Add(p[j][i].Setting);
+
+                                }
+
+                        }
+                }
+            planes = null;
+            planes = p;
         }
         transform.localScale = (Vector3Int)size;
     }
 
     [ContextMenu("Save")]
-    void Save()
+    public void Save()
     {
         saveAllBlock.sizePoleX = size.x;
         saveAllBlock.sizePoleY = size.y;
-        saveAllBlock.sizeCamera = Camera.main.orthographicSize;
-        save.SaveGame(saveAllBlock, "TestMap");
+        save.SaveGame(saveAllBlock, _activeMap);
     }
 
+
     [ContextMenu("Load")]
-    void Load()
+    public void Load()
     {
         var s = new SaveAllBlock();
         s.settingBlocks = new List<SettingPlaneWWW>();
-        save.LoadGame(ref s, "TestMap");
+        save.LoadGame(ref s, _activeMap);
         saveAllBlock.settingBlocks.Clear();
         saveAllBlock.settingBlocks.AddRange(s.settingBlocks);
-        saveAllBlock.sizeCamera = Camera.main.orthographicSize = s.sizeCamera;
-        saveAllBlock.sizePoleX = size.x = s.sizePoleX;
-        saveAllBlock.sizePoleY = size.y = s.sizePoleY;
+        size.x = s.sizePoleX;
+        size.y = s.sizePoleY;
+        DestroyPole();
         UpdatePole();
         for (int j = 0; j < size.y; j++)
         {
@@ -97,6 +139,30 @@ public class Redactor : MonoBehaviour
         }
     }
 
+    public void OpenMap()
+    {
+        PlayerPrefs.SetString("LoadMap", _activeMap);
+        SceneManager.LoadScene("Game");
+    }
+
+    private void DestroyPole()
+    {
+        if (planes != null)
+            for (int j = 0; j < planes.Length; j++)
+            {
+                if (planes[j] != null)
+                    for (int i = 0; i < planes[j].Length; i++)
+                    {
+                        if (planes[j][i] != null)
+                        {
+                            planes[j][i].gameObject.SetActive(false);
+                            planes[j][i] = null;
+                        }
+
+                    }
+            }
+    }
+
     public void ButtonForm(Vector2Int vector, bool b)
     {
         _såtting.x[vector.x].y[vector.y] = b;
@@ -115,6 +181,7 @@ public class Redactor : MonoBehaviour
         var t = int.Parse(inputX.text);
         if (t % 2 == 1)
             size.x = t;
+
         UpdatePole();
     }
     public void InputY(string s)
@@ -122,7 +189,23 @@ public class Redactor : MonoBehaviour
         var t = int.Parse(inputY.text);
         if (t % 2 == 1)
             size.y = t;
+
         UpdatePole();
+    }
+
+    public void ChangeMap(int v)
+    {
+        Debug.Log(dropdownMaps.captionText.text);
+        _activeMap = dropdownMaps.captionText.text;
+    }
+
+    public void AddNewMap()
+    {
+        _activeMap = AddMap.text;
+        _allMap.Add(AddMap.text);
+        dropdownMaps.options.Add(new TMP_Dropdown.OptionData(AddMap.text));
+        dropdownMaps.value = dropdownMaps.options.Count - 1;
+        Save();
     }
     void Update()
     {

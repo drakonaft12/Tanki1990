@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour, IDamaget
     Vector2 _move;
     int _damage;
     float _velosity = 5;
+    float timer = 0;
 
     bool isDestroi = false;
 
@@ -22,6 +23,10 @@ public class Bullet : MonoBehaviour, IDamaget
         gameObject.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        timer = 0;
+    }
     void Update()
     {
         RaycastHit2D[] rrt = new RaycastHit2D[2];
@@ -52,7 +57,8 @@ public class Bullet : MonoBehaviour, IDamaget
         }
         transform.position += (Vector3)_move * Time.deltaTime * _velosity;
 
-        if (transform.position.magnitude > 20) isDestroi = true;
+        if (timer >5f) isDestroi = true;
+        timer += Time.deltaTime;
         if (isDestroi)
             gameObject.SetActive(false);
     }

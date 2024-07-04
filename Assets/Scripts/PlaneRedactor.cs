@@ -11,7 +11,7 @@ public class PlaneRedactor : MonoBehaviour
     Vector3 _position;
     Dictionary<Vector2Int, Vector2> localPointBlocks;
 
-    public SettingPlaneWWW Setting => _såtting;
+    public SettingPlaneWWW Setting  { get => _såtting; }
     private void Awake()
     {
         _filter = GetComponent<MeshFilter>();
@@ -36,6 +36,12 @@ public class PlaneRedactor : MonoBehaviour
             }
         }
         PaintMesh(såtting.sizeVox.x, såtting.sizeVox.y, såtting.size);
+    }
+
+    public void UpdatePosition()
+    {
+        _såtting.positionX = (int)transform.position.x;
+        _såtting.positionY = (int)transform.position.y;
     }
 
     public void CreateWWW(SettingPlaneWWW såtting,Material material)
