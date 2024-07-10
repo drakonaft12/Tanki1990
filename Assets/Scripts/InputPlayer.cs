@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputPlayer : MonoBehaviour,ISetSpawner
 {
     [SerializeField] SettingsPawn _settingsPawn;
-    [SerializeField] Player _player;
+    [SerializeField] Tank _player;
     [SerializeField] Spawner _spawner;
 
     public Spawner SetSpawner { set => _spawner = value; }

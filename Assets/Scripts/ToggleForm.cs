@@ -21,11 +21,12 @@ public class ToggleForm : MonoBehaviour
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
+        
     }
     private void Start()
     {
         redactor.ButtonForm(vector, toggle.isOn);
-        
+        transform.localScale = Vector3.one;
     }
 
 

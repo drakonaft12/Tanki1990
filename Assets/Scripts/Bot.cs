@@ -6,7 +6,7 @@ using UnityEngine;
 public class Bot : MonoBehaviour,ISetSpawner
 {
     [SerializeField] SettingsPawn _settingsPawn;
-    [SerializeField] Player _player;
+    [SerializeField] Tank _player;
     [SerializeField] Spawner _spawner;
 
     bool isWork = true;

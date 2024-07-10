@@ -13,6 +13,7 @@ public class ActionBehavior : MonoBehaviour
 
 
     public Vector2 _Move { set { if(value!=Vector2.zero) _move = value; } }
+    public int Damage { set { _damage = value; } }
     public void Create(SettingsPawn settings, Spawner spawner)
     {
         ID_Bullet = settings.ID_Bullet;
@@ -23,11 +24,15 @@ public class ActionBehavior : MonoBehaviour
 
     public void Fire()
     {
-        if (_bullet==null || _bullet.activeSelf == false)
+        if (_bullet==null)
         {
         _bullet = _spawner.Spawn(ID_Bullet,transform.position+ (Vector3)_move*0.54f);
         _bullet.GetComponent<Bullet>().Create(_move, _damage);
         }
+    }
+    public void Update()
+    {
+        if (_bullet != null && _bullet.activeSelf == false) { _bullet = null; }
     }
 
 }

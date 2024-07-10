@@ -13,7 +13,7 @@ public class MoveBehavoir : MonoBehaviour
     Vector2 _moveInput;
     Rigidbody2D _rb;
     public Vector2 MoveInput { set { _moveInput = value; } }
-
+    public float MoveSpeed {  set { _moveSpeed = value; } }
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
