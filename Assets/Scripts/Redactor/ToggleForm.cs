@@ -13,6 +13,18 @@ public class ToggleForm : MonoBehaviour
 
     public Vector2Int Vector { get => vector; set => vector = value; }
 
+    public bool IsOn
+    {
+        get
+        {
+            return toggle.isOn;
+        }
+        set
+        {
+            toggle.isOn = value;
+        }
+    }
+
     public void Click()
     {
         redactor.ButtonForm(vector, toggle.isOn);

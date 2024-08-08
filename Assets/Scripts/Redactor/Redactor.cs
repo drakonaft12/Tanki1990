@@ -1,11 +1,8 @@
-
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Redactor : MonoBehaviour
 {
@@ -23,6 +20,7 @@ public class Redactor : MonoBehaviour
     List<string> _allMap;
 
     SaveAllBlock saveAllBlock;
+    public TextAsset defaultMap;
 
     DataSave save;
     public SåttingPlanå SåtSåttingPlanå { get => _såtting; }
@@ -30,19 +28,30 @@ public class Redactor : MonoBehaviour
 
     void Start()
     {
+        
         save = new DataSave();
         _allMap = new List<string>();
         dropdownMaps.options.Clear();
         saveAllBlock = new SaveAllBlock();
         saveAllBlock.settingBlocks = new List<SettingPlaneWWW>();
         _allMap = save.GetNameMaps();
+
+        if (_allMap.Count == 0)
+        {
+            saveAllBlock = JsonConvert.DeserializeObject<SaveAllBlock>(defaultMap.text);
+            Save();
+            _allMap = save.GetNameMaps();
+            saveAllBlock = new SaveAllBlock();
+            saveAllBlock.settingBlocks = new List<SettingPlaneWWW>();
+        }
+
         foreach (var item in _allMap)
         {
             dropdownMaps.options.Add(new TMP_Dropdown.OptionData(item));
         }
         _activeMap = dropdownMaps.options[0].text;
         dropdownMaps.captionText.text = _activeMap;
-        UpdatePole();
+        Load();
     }
 
     private void UpdatePole()

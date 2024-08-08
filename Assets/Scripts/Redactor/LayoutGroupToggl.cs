@@ -67,4 +67,12 @@ public class LayoutGroupToggl : MonoBehaviour
             }
         }
     }
+
+    public void ReversToggle()
+    {
+        foreach (var item in toggleForms)
+        {
+            item.IsOn = !item.IsOn;
+        }
+    }
 }

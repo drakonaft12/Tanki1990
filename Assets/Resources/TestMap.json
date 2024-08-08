@@ -1,0 +1,277 @@
+{
+  "sizePoleX": 19,
+  "sizePoleY": 15,
+  "sizeCamera": 8.0,
+  "settingBlocks": [
+    {
+      "positionX": 1,
+      "positionY": -7,
+      "materialID": 1,
+      "objectID": -1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 1
+    },
+    {
+      "positionX": 1,
+      "positionY": -6,
+      "materialID": 1,
+      "objectID": -1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 1
+    },
+    {
+      "positionX": 0,
+      "positionY": -6,
+      "materialID": 1,
+      "objectID": -1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 1
+    },
+    {
+      "positionX": -1,
+      "positionY": -6,
+      "materialID": 1,
+      "objectID": -1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 1
+    },
+    {
+      "positionX": -1,
+      "positionY": -7,
+      "materialID": 1,
+      "objectID": -1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 1
+    },
+    {
+      "positionX": 0,
+      "positionY": -5,
+      "materialID": 5,
+      "objectID": 1,
+      "damage": 5,
+      "sizeVoxX": 4,
+      "sizeVoxY": 4,
+      "x": [
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "y": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ],
+      "size": 0.25,
+      "layer": 257
+    }
+  ]
+}

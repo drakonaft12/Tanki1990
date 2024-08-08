@@ -1,5 +1,4 @@
-using System;
-using System.Collections;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,9 +8,10 @@ public class DataSave
 {
     public void SaveGame<T>(T data, string name)
     {
-        BinaryFormatter bf = new BinaryFormatter();
+
         FileStream file = File.Create(Application.persistentDataPath
           + $"/Maps/{name}.map");
+        BinaryFormatter bf = new();
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Game data saved!");
