@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class SpawnMap : MonoBehaviour
     [SerializeField] Spawner _spawner;
     Plane[][] planes;
     [SerializeField] Vector2Int size;
+    [SerializeField] Transform fon;
+    [SerializeField] Transform fonMap;
 
     SaveAllBlock saveAllBlock;
 
@@ -19,7 +22,7 @@ public class SpawnMap : MonoBehaviour
         save = new DataSave();
         saveAllBlock = new SaveAllBlock();
         saveAllBlock.settingBlocks = new List<SettingPlaneWWW>();
-        
+
         Load(PlayerPrefs.GetString("LoadMap"));
     }
 
@@ -34,6 +37,8 @@ public class SpawnMap : MonoBehaviour
         saveAllBlock.sizeCamera = Camera.main.orthographicSize = s.sizeCamera;
         saveAllBlock.sizePoleX = size.x = s.sizePoleX;
         saveAllBlock.sizePoleY = size.y = s.sizePoleY;
+        fonMap.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY);
+        fon.localScale = fonMap.localScale * 2;
         planes = new Plane[size.x][];
         for (int i = 0; i < size.x; i++)
         {
@@ -72,11 +77,11 @@ public class SpawnMap : MonoBehaviour
             SceneManager.LoadScene("Redactor");
         }
 
-        timeB-=Time.deltaTime;
-        if(timeB < 0)
+        timeB -= Time.deltaTime;
+        if (timeB < 0)
         {
             timeB = Random.Range(5, 10);
-            _spawner.Spawn<Bonus>(4, new Vector3(Random.Range(-size.x / 2,size.x / 2), Random.Range(-size.y / 2, size.y / 2))).Create();
+            _spawner.Spawn<Bonus>(4, new Vector3(Random.Range(-size.x / 2, size.x / 2), Random.Range(-size.y / 2, size.y / 2))).Create();
         }
     }
 }

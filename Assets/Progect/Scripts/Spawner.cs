@@ -36,7 +36,6 @@ public class Spawner : MonoBehaviour
         else
         {
             item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
-            item.transform.SetParent(transform);
             allSpawnObjects[ID].Add(item);
             return item;
         }
@@ -60,7 +59,6 @@ public class Spawner : MonoBehaviour
         else
         {
             item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
-            item.transform.SetParent(transform);
             allSpawnObjects[ID].Add(item);
             return item;
         }
@@ -79,7 +77,6 @@ public class Spawner : MonoBehaviour
         else
         {
             item = Instantiate(dictionaryPrefabs[ID], position, new Quaternion());
-            item.transform.SetParent(transform);
             allSpawnObjects[ID].Add(item);
             return item.GetComponent<T>();
         }
