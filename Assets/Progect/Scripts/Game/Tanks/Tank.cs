@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Tank : MonoBehaviour, IDamaget
@@ -86,5 +87,7 @@ public class Tank : MonoBehaviour, IDamaget
 
         }
     }
+
+    
 
 }

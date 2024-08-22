@@ -37,8 +37,8 @@ public class SpawnMap : MonoBehaviour
         saveAllBlock.sizeCamera = Camera.main.orthographicSize = s.sizeCamera;
         saveAllBlock.sizePoleX = size.x = s.sizePoleX;
         saveAllBlock.sizePoleY = size.y = s.sizePoleY;
-        fonMap.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY);
-        fon.localScale = fonMap.localScale * 2;
+        fonMap.GetComponent<SpriteRenderer>().size = new Vector2(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY);
+        fon.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY) * 2;
         planes = new Plane[size.x][];
         for (int i = 0; i < size.x; i++)
         {

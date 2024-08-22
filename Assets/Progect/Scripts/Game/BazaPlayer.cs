@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BazaPlayer : MonoBehaviour, IDamaget
 {
@@ -21,4 +22,5 @@ public class BazaPlayer : MonoBehaviour, IDamaget
         Application.Quit();
 #endif
     }
+
 }

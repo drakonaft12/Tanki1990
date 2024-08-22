@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputPlayer : MonoBehaviour,ISetSpawner
 {
@@ -29,5 +30,9 @@ public class InputPlayer : MonoBehaviour,ISetSpawner
         else { _player.MovePawn = Vector2.zero;}
 
         if(Input.GetKeyDown(KeyCode.Space)) { _player.Fire(); }
+    }
+    private void OnDisable()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
