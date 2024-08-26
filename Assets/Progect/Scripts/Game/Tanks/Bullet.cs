@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour, IDamaget
 {
     Vector2 _move;
     int _damage;
-    float _velosity = 5;
+    float _velosity = 8;
     float timer = 0;
 
     bool isDestroi = false;
@@ -55,7 +55,7 @@ public class Bullet : MonoBehaviour, IDamaget
 
         }
         transform.position += (Vector3)_move * Time.deltaTime * _velosity;
-
+        if (timer > 1.5f) GetComponent<CircleCollider2D>().isTrigger = true;
         if (timer >5f) isDestroi = true;
         timer += Time.deltaTime;
         if (isDestroi)

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Redactor : MonoBehaviour
 {
     [SerializeField] Spawner _spawner;
-    [SerializeField] SåttingPlanå _såtting;
+    [SerializeField] SettingPlane _såtting;
     PlaneRedactor[][] planes;
     [SerializeField] Vector2Int size;
     [SerializeField] TMP_InputField inputX;
@@ -23,8 +23,13 @@ public class Redactor : MonoBehaviour
     public TextAsset defaultMap;
 
     DataSave save;
-    public SåttingPlanå SåtSåttingPlanå { get => _såtting; }
+    public SettingPlane SåtSåttingPlanå { get => _såtting; }
 
+    private void Awake()
+    {
+        inputX.onEndEdit.AddListener(InputX);
+        inputY.onEndEdit.AddListener(InputY); 
+    }
 
     void Start()
     {
@@ -58,8 +63,10 @@ public class Redactor : MonoBehaviour
     {
         inputX.text = size.x.ToString();
         inputY.text = size.y.ToString();
-        Camera.main.orthographicSize = Mathf.Max(8f / 19f * size.x, 8f / 15f * size.y);
-        fon.localScale = new Vector3(2* size.x,2*  size.y);
+        var iny = Mathf.Max(8f / 19f * size.x, 8f / 15f * size.y);
+        Camera.main.orthographicSize = iny;
+        var tr = Camera.main.pixelRect;
+        fon.localScale = new Vector3(tr.width, tr.height) * iny / 256;
         if (saveAllBlock.sizePoleX != size.x || saveAllBlock.sizePoleY != size.y)
         {
             saveAllBlock.sizePoleX = size.x;
@@ -134,13 +141,13 @@ public class Redactor : MonoBehaviour
                         if (planes[i][j] == null)
                         {
                             planes[i][j] = _spawner.Spawn<PlaneRedactor>(0, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].CreateWWW(item, SåttingPlanå.GetMaterial(item.materialID));
+                            planes[i][j].CreateWWW(item, SettingPlane.GetMaterial(item.materialID));
                         }
                         else
                         {
                             planes[i][j].gameObject.SetActive(false);
                             planes[i][j] = _spawner.Spawn<PlaneRedactor>(0, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].CreateWWW(item, SåttingPlanå.GetMaterial(item.materialID));
+                            planes[i][j].CreateWWW(item, SettingPlane.GetMaterial(item.materialID));
                         }
 
                     }
@@ -151,6 +158,7 @@ public class Redactor : MonoBehaviour
 
     public void OpenMap()
     {
+        Save();
         PlayerPrefs.SetString("LoadMap", _activeMap);
         SceneManager.LoadScene("Game");
     }
@@ -171,19 +179,6 @@ public class Redactor : MonoBehaviour
 
                     }
             }
-    }
-
-    public void ButtonForm(Vector2Int vector, bool b)
-    {
-        _såtting.x[vector.x].y[vector.y] = b;
-    }
-
-    public void SetSettingToPaint(Material material, int damage, LayerMask layer, GameObject gameObject)
-    {
-        _såtting.material = material;
-        _såtting.damage = damage;
-        _såtting.layer = layer;
-        _såtting.Object = gameObject;
     }
 
     public void InputX(string s)
@@ -217,6 +212,7 @@ public class Redactor : MonoBehaviour
         dropdownMaps.value = dropdownMaps.options.Count - 1;
         Save();
     }
+
     void Update()
     {
 

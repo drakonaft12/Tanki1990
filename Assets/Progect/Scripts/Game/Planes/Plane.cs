@@ -75,43 +75,13 @@ public class Plane : MonoBehaviour, IDamaget
         transform.position = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
     }
 
-    public void Create(SåttingPlanå såtting)
-    {
-        valueOfX = såtting.sizeVox.x;
-        valueOfY = såtting.sizeVox.y;
-        _size = såtting.size;
-        _renderer.material = såtting.material;
-        _damageArmor = såtting.damage;
-        var layerValue = såtting.layer.value;
-        int layerID = 0;
-        for (int i = 0; i < 32; i++)
-        {
-            if(layerValue%2==1) { layerID = i; break; }
-            layerValue = layerValue >> 1;
-        }
-        gameObject.layer = layerID;
-        localPointBlocks = new Dictionary<Vector2Int, Vector2>();
-
-        for (int j = 0; j < valueOfY; j++)
-        {
-            for (int i = 0; i < valueOfX; i++)
-            {
-                if (såtting.x[i].y[j])
-                localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size, 
-                                                                               (j - valueOfY / 2 + 0.5f) * _size));
-            }
-        }
-
-                PaintMesh(_size);
-    }
-
     public void Create(SettingPlaneWWW såtting, Spawner spawner)
     {
         settingPlaneWWW = såtting;
         valueOfX = såtting.sizeVoxX;
         valueOfY = såtting.sizeVoxY;
         _size = såtting.size;
-        _renderer.material = SåttingPlanå.GetMaterial(såtting.materialID);
+        _renderer.material = SettingPlane.GetMaterial(såtting.materialID);
         _damageArmor = såtting.damage;
         var layerValue = såtting.layer;
         int layerID = 0;
@@ -123,7 +93,7 @@ public class Plane : MonoBehaviour, IDamaget
         gameObject.layer = layerID;
         if (såtting.objectID != -1) 
         {
-            var s = spawner.Spawn(SåttingPlanå.GetObject(såtting.objectID), transform.position);
+            var s = spawner.Spawn(SettingPlane.GetObject(såtting.objectID), transform.position);
             if(s.TryGetComponent<ISetSpawner>(out var set))
             {
                 set.SetSpawner = spawner;

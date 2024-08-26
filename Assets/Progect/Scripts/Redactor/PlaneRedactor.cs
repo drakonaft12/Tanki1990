@@ -17,7 +17,7 @@ public class PlaneRedactor : MonoBehaviour
         _filter = GetComponent<MeshFilter>();
         _renderer = GetComponent<MeshRenderer>();   
     }
-    public void Create(SåttingPlanå såtting) 
+    public void Create(SettingPlane såtting) 
     {
         _position = transform.position;
         _såtting = såtting.ToWWW(_position);

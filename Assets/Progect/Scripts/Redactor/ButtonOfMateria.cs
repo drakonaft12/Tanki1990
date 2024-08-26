@@ -4,22 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ButtonOfMatria : MonoBehaviour
 {
-    [SerializeField] Material material;
-    [SerializeField] int damage = 5;
-    [SerializeField] LayerMask layer;
-    [SerializeField] Redactor redactor;
-    [SerializeField] GameObject Object;
+    [SerializeField] BlockSetting settingBlock;
+    [SerializeField] SettingPlane _såtting;
 
-    private void Awake()
+    public BlockSetting SettingBlock { set => settingBlock = value; }
+    public SettingPlane Såtting { set => _såtting = value; }
+
+    public void Init()
     {
+        GetComponent<Image>().sprite = settingBlock.spriteButton;
+        GetComponent<Image>().color = settingBlock.color;
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()
     {
-        redactor.SetSettingToPaint(material,damage,layer, Object);
+        _såtting.material = settingBlock.material;
+        _såtting.damage = settingBlock.damage;
+        _såtting.layer = settingBlock.layer;
+        _såtting.Object = settingBlock.Object;
     }
 
 }

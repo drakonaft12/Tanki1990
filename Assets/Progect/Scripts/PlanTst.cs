@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Plane))]
 public class PlanTst : MonoBehaviour
 {
-    [SerializeField] SåttingPlanå såtting;
+    [SerializeField] SettingPlane såtting;
     Plane plane;
     private void Start()
     {

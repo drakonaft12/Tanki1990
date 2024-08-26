@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "Units/PlanеSettings")]
-public class SеttingPlanе : ScriptableObject
+public class SettingPlane : ScriptableObject
 {
     public Material material;
     public int damage = 5;
@@ -18,7 +18,7 @@ public class SеttingPlanе : ScriptableObject
     [SerializeField] List<Material> materials;
     [SerializeField] List<GameObject> objects;
 
-    static SеttingPlanе sеtting;
+    static SettingPlane sеtting;
 
     public static Material GetMaterial(int id)
     { 

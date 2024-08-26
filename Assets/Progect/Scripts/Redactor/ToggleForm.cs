@@ -5,11 +5,9 @@ using UnityEngine.UI;
 [RequireComponent (typeof(Toggle))]
 public class ToggleForm : MonoBehaviour
 {
-    Toggle toggle;
-    [SerializeField] Vector2Int vector;
-    [SerializeField] Redactor redactor;
-
-    public Redactor Redactor {  get { return redactor; } set {  redactor = value; } }
+    private Toggle toggle;
+    private Vector2Int vector;
+    public SettingPlane _såtting;
 
     public Vector2Int Vector { get => vector; set => vector = value; }
 
@@ -27,7 +25,7 @@ public class ToggleForm : MonoBehaviour
 
     public void Click()
     {
-        redactor.ButtonForm(vector, toggle.isOn);
+        _såtting.x[vector.x].y[vector.y] = toggle.isOn;
     }
 
     private void Awake()
@@ -37,7 +35,7 @@ public class ToggleForm : MonoBehaviour
     }
     private void Start()
     {
-        redactor.ButtonForm(vector, toggle.isOn);
+        _såtting.x[vector.x].y[vector.y] = toggle.isOn;
         transform.localScale = Vector3.one;
     }
 

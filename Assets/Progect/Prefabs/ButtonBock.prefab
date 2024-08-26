@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -120, y: 210}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4552935226538311424
 CanvasRenderer:
@@ -145,10 +145,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe25b8c36b4f6f4b957db48bf5c7138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-  damage: 5
-  layer:
-    serializedVersion: 2
-    m_Bits: 1
-  redactor: {fileID: 0}
-  Object: {fileID: 0}
+  settingBlock: {fileID: 0}
+  "_s\u0435tting": {fileID: 0}
