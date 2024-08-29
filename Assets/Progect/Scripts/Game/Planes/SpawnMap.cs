@@ -10,7 +10,6 @@ public class SpawnMap : MonoBehaviour
     [SerializeField] private Spawner _spawner;
     [SerializeField] private Vector2Int size;
     [SerializeField] private WinEvent win;
-    [SerializeField] private Transform fon;
     [SerializeField] private Transform fonMap;
     private Plane[][] planes;
     private float timeB = 5;
@@ -40,7 +39,7 @@ public class SpawnMap : MonoBehaviour
         saveAllBlock.sizePoleX = size.x = s.sizePoleX;
         saveAllBlock.sizePoleY = size.y = s.sizePoleY;
         fonMap.GetComponent<SpriteRenderer>().size = new Vector2(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY);
-        fon.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY) * 3;
+        
         planes = new Plane[size.x][];
         for (int i = 0; i < size.x; i++)
         {

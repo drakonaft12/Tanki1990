@@ -12,7 +12,6 @@ public class Redactor : MonoBehaviour
     [SerializeField] Vector2Int size;
     [SerializeField] TMP_InputField inputX;
     [SerializeField] TMP_InputField inputY;
-    [SerializeField] Transform fon;
     [SerializeField] TMP_Dropdown dropdownMaps;
     [SerializeField] TMP_InputField AddMap;
 
@@ -65,8 +64,6 @@ public class Redactor : MonoBehaviour
         inputY.text = size.y.ToString();
         var iny = Mathf.Max(8f / 19f * size.x, 8f / 15f * size.y);
         Camera.main.orthographicSize = iny;
-        var tr = Camera.main.pixelRect;
-        fon.localScale = new Vector3(tr.width, tr.height) * iny / 128;
         if (saveAllBlock.sizePoleX != size.x || saveAllBlock.sizePoleY != size.y)
         {
             saveAllBlock.sizePoleX = size.x;
