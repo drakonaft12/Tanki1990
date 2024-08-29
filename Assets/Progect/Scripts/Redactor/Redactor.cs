@@ -28,12 +28,12 @@ public class Redactor : MonoBehaviour
     private void Awake()
     {
         inputX.onEndEdit.AddListener(InputX);
-        inputY.onEndEdit.AddListener(InputY); 
+        inputY.onEndEdit.AddListener(InputY);
     }
 
     void Start()
     {
-        
+
         save = new DataSave();
         _allMap = new List<string>();
         dropdownMaps.options.Clear();
@@ -66,7 +66,7 @@ public class Redactor : MonoBehaviour
         var iny = Mathf.Max(8f / 19f * size.x, 8f / 15f * size.y);
         Camera.main.orthographicSize = iny;
         var tr = Camera.main.pixelRect;
-        fon.localScale = new Vector3(tr.width, tr.height) * iny / 256;
+        fon.localScale = new Vector3(tr.width, tr.height) * iny / 128;
         if (saveAllBlock.sizePoleX != size.x || saveAllBlock.sizePoleY != size.y)
         {
             saveAllBlock.sizePoleX = size.x;
@@ -186,6 +186,11 @@ public class Redactor : MonoBehaviour
         var t = int.Parse(inputX.text);
         if (t % 2 == 1)
             size.x = t;
+        else
+        {
+            size.x = t + 1;
+            inputX.text = size.x.ToString();
+        }
 
         UpdatePole();
     }
@@ -194,6 +199,11 @@ public class Redactor : MonoBehaviour
         var t = int.Parse(inputY.text);
         if (t % 2 == 1)
             size.y = t;
+        else
+        {
+            size.y = t + 1;
+            inputY.text = size.y.ToString();
+        }
 
         UpdatePole();
     }
@@ -216,7 +226,7 @@ public class Redactor : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetAxis("Fire1")!=0)
+        if (Input.GetAxis("Fire1") != 0)
         {
 
             var v = Vector3Int.CeilToInt(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Vector3.one * 0.5f);
@@ -240,7 +250,7 @@ public class Redactor : MonoBehaviour
                 }
             }
         }
-        if(Input.GetAxis("Cancel") != 0)
+        if (Input.GetAxis("Cancel") != 0)
         {
             SceneManager.LoadScene(0);
         }

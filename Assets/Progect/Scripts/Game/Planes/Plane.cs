@@ -11,7 +11,7 @@ public class Plane : MonoBehaviour, IDamaget
 
     List<Vector3> vertieces;
     List<Vector2> uvs;
-    List<int> triangles; 
+    List<int> triangles;
 
     Dictionary<Vector2Int, Vector2> localPointBlocks;
 
@@ -75,7 +75,7 @@ public class Plane : MonoBehaviour, IDamaget
         transform.position = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
     }
 
-    public void Create(SettingPlaneWWW såtting, Spawner spawner)
+    public void Create(SettingPlaneWWW såtting, Spawner spawner, WinEvent win)
     {
         settingPlaneWWW = såtting;
         valueOfX = såtting.sizeVoxX;
@@ -91,13 +91,14 @@ public class Plane : MonoBehaviour, IDamaget
             layerValue = layerValue >> 1;
         }
         gameObject.layer = layerID;
-        if (såtting.objectID != -1) 
+        if (såtting.objectID != -1)
         {
             var s = spawner.Spawn(SettingPlane.GetObject(såtting.objectID), transform.position);
-            if(s.TryGetComponent<ISetSpawner>(out var set))
+            if (s.TryGetComponent<ISetSpawner>(out var set))
             {
                 set.SetSpawner = spawner;
             }
+            if (såtting.objectID == 0) { win.Tanks.Add(s); }
             gameObject.SetActive(false);
         }
         else
@@ -133,7 +134,7 @@ public class Plane : MonoBehaviour, IDamaget
         {
             for (int i = 0; i < valueOfX; i++)
             {
-                if (!localPointBlocks.TryGetValue(new Vector2Int(i+1, j+1), out var vector))
+                if (!localPointBlocks.TryGetValue(new Vector2Int(i + 1, j + 1), out var vector))
                 {
                     var vertiecesColliders = new Vector2[3];
 
@@ -145,7 +146,7 @@ public class Plane : MonoBehaviour, IDamaget
                     vertiecesColliders[0] = Vector2.zero;
                     vertiecesColliders[1] = Vector2.zero;
                     vertiecesColliders[2] = Vector2.zero;
-                   
+
                     uvs.Add(Vector2.zero);
                     uvs.Add(Vector2.zero);
                     uvs.Add(Vector2.zero);
@@ -177,10 +178,15 @@ public class Plane : MonoBehaviour, IDamaget
                     vertiecesColliders[2] = new Vector2(foot + i * foot - ix, foot + j * foot - iy);
                     vertiecesColliders[3] = new Vector2(foot + i * foot - ix, j * foot - iy);
 
-                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4)));
-                    uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4 + 1)));
-                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4 + 1)));
-                    uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4)));
+                    //uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4)));
+                    //uvs.Add(new Vector2(0.25f * (i % 4), 0.25f * (j % 4 + 1)));
+                    //uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4 + 1)));
+                    //uvs.Add(new Vector2(0.25f * (i % 4 + 1), 0.25f * (j % 4)));
+
+                    uvs.Add(new Vector2(foot * (i % valueOfX), foot * (j % valueOfY)));
+                    uvs.Add(new Vector2(foot * (i % valueOfX), foot * (j % valueOfY + 1)));
+                    uvs.Add(new Vector2(foot * (i % valueOfX + 1), foot * (j % valueOfY + 1)));
+                    uvs.Add(new Vector2(foot * (i % valueOfX + 1), foot * (j % valueOfY)));
 
                     int index = (j * valueOfY + i);
 
@@ -194,7 +200,7 @@ public class Plane : MonoBehaviour, IDamaget
 
                     _collider.SetPath(index, vertiecesColliders);
                 }
-                
+
             }
         }
         mesh.SetVertices(vertieces);
@@ -202,40 +208,40 @@ public class Plane : MonoBehaviour, IDamaget
         mesh.SetUVs(0, uvs);
 
         _filter.mesh = mesh;
-        
+
     }
 
     private void DeleteVox(int x, int y)
     {
         int i = ((y - 1) * valueOfY + (x - 1)) * 4;
         vertieces[i] = Vector2.zero;
-        vertieces[i+1] = Vector2.zero;
-        vertieces[i+2] = Vector2.zero;
-        vertieces[i+3] = Vector2.zero;
+        vertieces[i + 1] = Vector2.zero;
+        vertieces[i + 2] = Vector2.zero;
+        vertieces[i + 3] = Vector2.zero;
 
         Vector2[] g = new Vector2[3] { Vector2.zero, Vector2.zero, Vector2.zero };
         _collider.SetPath(i / 4, g);
 
         uvs[i] = Vector2.zero;
-        uvs[i+1] = Vector2.zero;
-        uvs[i+2] = Vector2.zero;
-        uvs[i+3] = Vector2.zero;
+        uvs[i + 1] = Vector2.zero;
+        uvs[i + 2] = Vector2.zero;
+        uvs[i + 3] = Vector2.zero;
 
         _filter.mesh.SetVertices(vertieces);
         _filter.mesh.SetUVs(0, uvs);
-  
+
         localPointBlocks.Remove(new Vector2Int(x, y));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_isUpdat)
-        if(localPointBlocks.Count == 0)
-        {
+        if (_isUpdat)
+            if (localPointBlocks.Count == 0)
+            {
                 _isUpdat = false;
-            gameObject.SetActive(false);
-        }
+                gameObject.SetActive(false);
+            }
 
     }
 

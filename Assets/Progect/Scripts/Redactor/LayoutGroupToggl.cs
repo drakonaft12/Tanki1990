@@ -8,14 +8,18 @@ public class LayoutGroupToggl : MonoBehaviour
     private GridLayoutGroup layout;
     [SerializeField] private Spawner spawner;
     [SerializeField] private SettingPlane _såtting;
+    [SerializeField] private Button buttonRewers;
     private RectTransform rectTransform;
     private List<ToggleForm> toggleForms = new List<ToggleForm>();
     private Vector2Int vector;
+    private Vector2 sizeDeltaR;
 
     private void Awake()
     {
         layout = GetComponent<GridLayoutGroup>();
         rectTransform = GetComponent<RectTransform>();
+        buttonRewers.onClick.AddListener(ReversToggle);
+        sizeDeltaR = rectTransform.sizeDelta;
     }
     void Start()
     {
@@ -27,7 +31,7 @@ public class LayoutGroupToggl : MonoBehaviour
                 AddToggle(Vector2Int.right * i + Vector2Int.up * j);
             }
         }
-        layout.cellSize = new Vector2(rectTransform.sizeDelta.x / vector.x, rectTransform.sizeDelta.y / vector.y);
+        layout.cellSize = new Vector2(sizeDeltaR.x / vector.x, sizeDeltaR.y / vector.y);
         layout.constraintCount = vector.x;
     }
     private void DeleteAllToggle()
@@ -56,7 +60,8 @@ public class LayoutGroupToggl : MonoBehaviour
         {
             DeleteAllToggle();
             vector = _såtting.sizeVox;
-            layout.cellSize = new Vector2(280 / vector.x - 20, 280 / vector.y - 20);
+            _såtting.UpdateValid();
+            layout.cellSize = new Vector2(sizeDeltaR.x / vector.x, sizeDeltaR.y / vector.y);
             layout.constraintCount = vector.x;
             for (int i = 0; i < vector.y; i++)
             {

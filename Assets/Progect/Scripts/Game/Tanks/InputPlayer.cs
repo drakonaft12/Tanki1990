@@ -33,6 +33,7 @@ public class InputPlayer : MonoBehaviour,ISetSpawner
     }
     private void OnDisable()
     {
+        Debug.Log("GAME OVER");
         SceneManager.LoadScene("Menu");
     }
 }

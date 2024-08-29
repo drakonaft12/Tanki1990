@@ -27,7 +27,7 @@ public class ActionBehavior : MonoBehaviour
         if (_bullet==null)
         {
         _bullet = _spawner.Spawn(ID_Bullet,transform.position+ (Vector3)_move*0.54f);
-        _bullet.GetComponent<Bullet>().Create(_move, _damage);
+        _bullet.GetComponent<Bullet>().Create(_move, _damage,gameObject);
         }
     }
     public void Update()

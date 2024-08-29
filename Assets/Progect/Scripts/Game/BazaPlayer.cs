@@ -16,11 +16,8 @@ public class BazaPlayer : MonoBehaviour, IDamaget
 
     private void EndGame()
     {
-#if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        Debug.Log("GAME OVER");
+        SceneManager.LoadScene("Menu");
     }
 
 }

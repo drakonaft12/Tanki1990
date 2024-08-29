@@ -29,7 +29,7 @@ public class Tank : MonoBehaviour, IDamaget
         _actionBehavior.Create(settings, spawner);
 
         HP = 5;
-       
+
         _spawner = spawner;
 
 
@@ -37,7 +37,7 @@ public class Tank : MonoBehaviour, IDamaget
 
     private void Update()
     {
-        if(action != null)
+        if (action != null)
         {
             action.Invoke();
         }
@@ -46,16 +46,17 @@ public class Tank : MonoBehaviour, IDamaget
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
     {
         HP -= damage;
-        if(HP<=0) gameObject.SetActive(false);
+        if (HP <= 0) gameObject.SetActive(false);
     }
 
 
     public void SetBonusAction(int ID)
     {
         time = 15;
-        switch(ID) 
+        switch (ID)
         {
-            case 0: action = () =>
+            case 0:
+                action = () =>
             {
                 if (time > 0)
                 {
@@ -68,7 +69,7 @@ public class Tank : MonoBehaviour, IDamaget
                     action = null;
                 }
             };
-            break;
+                break;
             case 1:
                 action = () =>
                 {
@@ -88,6 +89,6 @@ public class Tank : MonoBehaviour, IDamaget
         }
     }
 
-    
+
 
 }

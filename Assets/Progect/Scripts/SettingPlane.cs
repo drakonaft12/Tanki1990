@@ -24,6 +24,7 @@ public class SettingPlane : ScriptableObject
     { 
         return sеtting.materials[id];
     }
+
     public static GameObject GetObject(int id)
     {
         return sеtting.objects[id];
@@ -102,6 +103,21 @@ public class SettingPlane : ScriptableObject
             _x = sizeVox.x;
             _y = sizeVox.y;
         }
+    }
+
+    public void UpdateValid()
+    {
+        x = new Y[sizeVox.x];
+        for (int i = 0; i < sizeVox.x; i++)
+        {
+            x[i].y = new bool[sizeVox.y];
+            for (int j = 0; j < sizeVox.y; j++)
+            {
+                x[i].y[j] = true;
+            }
+        }
+        _x = sizeVox.x;
+        _y = sizeVox.y;
     }
 }
 [Serializable]

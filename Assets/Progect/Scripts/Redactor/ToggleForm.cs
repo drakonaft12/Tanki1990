@@ -23,14 +23,15 @@ public class ToggleForm : MonoBehaviour
         }
     }
 
-    public void Click()
+    public void Click(bool b)
     {
-        _såtting.x[vector.x].y[vector.y] = toggle.isOn;
+        _såtting.x[vector.x].y[vector.y] = b;
     }
 
     private void Awake()
     {
         toggle = GetComponent<Toggle>();
+        toggle.onValueChanged.AddListener(Click);
         
     }
     private void Start()

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 644f069abc3b5b143adb9ddf7d1a7de0, type: 3}
-  m_Name: "New S\u0435tting Plan\u0435"
+  m_Name: PaintBlockSetting
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 303ec15f3ec48d54abf4c8a5d41beea9, type: 2}
   damage: 5

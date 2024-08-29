@@ -7,15 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class SpawnMap : MonoBehaviour
 {
-    [SerializeField] Spawner _spawner;
-    Plane[][] planes;
-    [SerializeField] Vector2Int size;
-    [SerializeField] Transform fon;
-    [SerializeField] Transform fonMap;
+    [SerializeField] private Spawner _spawner;
+    [SerializeField] private Vector2Int size;
+    [SerializeField] private WinEvent win;
+    [SerializeField] private Transform fon;
+    [SerializeField] private Transform fonMap;
+    private Plane[][] planes;
+    private float timeB = 5;
+    private SaveAllBlock saveAllBlock;
+    private DataSave save;
 
-    SaveAllBlock saveAllBlock;
-
-    DataSave save;
+    public Vector2Int Size { get => size; }
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class SpawnMap : MonoBehaviour
         saveAllBlock.sizePoleX = size.x = s.sizePoleX;
         saveAllBlock.sizePoleY = size.y = s.sizePoleY;
         fonMap.GetComponent<SpriteRenderer>().size = new Vector2(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY);
-        fon.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY) * 2;
+        fon.localScale = new Vector3(saveAllBlock.sizePoleX, saveAllBlock.sizePoleY) * 3;
         planes = new Plane[size.x][];
         for (int i = 0; i < size.x; i++)
         {
@@ -55,21 +57,20 @@ public class SpawnMap : MonoBehaviour
                         if (planes[i][j] == null)
                         {
                             planes[i][j] = _spawner.Spawn<Plane>(1, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].Create(item, _spawner);
+                            planes[i][j].Create(item, _spawner, win);
                         }
                         else
                         {
                             planes[i][j].gameObject.SetActive(false);
                             planes[i][j] = _spawner.Spawn<Plane>(1, new Vector3(item.positionX, item.positionY));
-                            planes[i][j].Create(item, _spawner);
+                            planes[i][j].Create(item, _spawner, win);
                         }
-
                     }
                 }
             }
         }
     }
-    float timeB = 5;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

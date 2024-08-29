@@ -8,14 +8,16 @@ public class Bullet : MonoBehaviour, IDamaget
     int _damage;
     float _velosity = 8;
     float timer = 0;
+    GameObject _parent;
 
     bool isDestroi = false;
 
-    public void Create(Vector2 move, int damage)
+    public void Create(Vector2 move, int damage, GameObject parent)
     {
         isDestroi = false;
         _move = move.normalized;
         _damage = damage;
+        _parent = parent;
     }
 
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
@@ -42,7 +44,7 @@ public class Bullet : MonoBehaviour, IDamaget
                     var colliders = Physics2D.OverlapBoxAll(hit.point, new Vector2(0.9f, 0.1f), _move.x != 0 ? 90 : 0);
                     foreach (var collider in colliders)
                     {
-                        if (collider.gameObject.TryGetComponent<IDamaget>(out var damaget))
+                        if (_parent != collider.gameObject && collider.gameObject.TryGetComponent<IDamaget>(out var damaget))
                         {
                             damaget.Damage(hit.point, -_move, _damage);
                             isDestroi = true;
