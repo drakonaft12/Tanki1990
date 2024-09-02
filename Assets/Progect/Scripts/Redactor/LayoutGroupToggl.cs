@@ -7,7 +7,7 @@ public class LayoutGroupToggl : MonoBehaviour
 {
     private GridLayoutGroup layout;
     [SerializeField] private Spawner spawner;
-    [SerializeField] private SettingPlane _såtting;
+    [SerializeField] private SettingPlane _setting;
     [SerializeField] private Button buttonRewers;
     private RectTransform rectTransform;
     private List<ToggleForm> toggleForms = new List<ToggleForm>();
@@ -23,7 +23,7 @@ public class LayoutGroupToggl : MonoBehaviour
     }
     void Start()
     {
-        vector = _såtting.sizeVox;
+        vector = _setting.sizeVox;
         for (int i = 0; i < vector.y; i++)
         {
             for (int j = 0; j < vector.x; j++)
@@ -48,7 +48,7 @@ public class LayoutGroupToggl : MonoBehaviour
         var tog = spawner.Spawn<ToggleForm>(1, transform.position);
         tog.transform.SetParent(transform);
         tog.Vector = position;
-        tog._såtting = _såtting;
+        tog._setting = _setting;
         toggleForms.Add(tog);
     }
 
@@ -56,11 +56,11 @@ public class LayoutGroupToggl : MonoBehaviour
     void Update()
     {
         
-        if (vector != _såtting.sizeVox)
+        if (vector != _setting.sizeVox)
         {
             DeleteAllToggle();
-            vector = _såtting.sizeVox;
-            _såtting.UpdateValid();
+            vector = _setting.sizeVox;
+            _setting.UpdateValid();
             layout.cellSize = new Vector2(sizeDeltaR.x / vector.x, sizeDeltaR.y / vector.y);
             layout.constraintCount = vector.x;
             for (int i = 0; i < vector.y; i++)

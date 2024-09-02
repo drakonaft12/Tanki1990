@@ -11,7 +11,11 @@ public class DataSave
 
         FileStream file = File.Create(Application.persistentDataPath
           + $"/Maps/{name}.map");
-        BinaryFormatter bf = new();
+        //string json = JsonConvert.SerializeObject(data);
+        //StreamWriter reader = new StreamWriter(file);
+        //reader.Write(json);
+        //reader.Close();
+        BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Game data saved!");

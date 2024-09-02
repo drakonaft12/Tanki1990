@@ -75,15 +75,15 @@ public class Plane : MonoBehaviour, IDamaget
         transform.position = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
     }
 
-    public void Create(SettingPlaneWWW såtting, Spawner spawner, WinEvent win)
+    public void Create(SettingPlaneWWW setting, Spawner spawner, WinEvent win)
     {
-        settingPlaneWWW = såtting;
-        valueOfX = såtting.sizeVoxX;
-        valueOfY = såtting.sizeVoxY;
-        _size = såtting.size;
-        _renderer.material = SettingPlane.GetMaterial(såtting.materialID);
-        _damageArmor = såtting.damage;
-        var layerValue = såtting.layer;
+        settingPlaneWWW = setting;
+        valueOfX = setting.sizeVoxX;
+        valueOfY = setting.sizeVoxY;
+        _size = setting.size;
+        _renderer.material = SettingPlane.GetMaterial(setting.materialID);
+        _damageArmor = setting.damage;
+        var layerValue = setting.layer;
         int layerID = 0;
         for (int i = 0; i < 32; i++)
         {
@@ -91,14 +91,14 @@ public class Plane : MonoBehaviour, IDamaget
             layerValue = layerValue >> 1;
         }
         gameObject.layer = layerID;
-        if (såtting.objectID != -1)
+        if (setting.objectID != -1)
         {
-            var s = spawner.Spawn(SettingPlane.GetObject(såtting.objectID), transform.position);
+            var s = spawner.Spawn(SettingPlane.GetObject(setting.objectID), transform.position);
             if (s.TryGetComponent<ISetSpawner>(out var set))
             {
                 set.SetSpawner = spawner;
             }
-            if (såtting.objectID == 0) { win.Tanks.Add(s); }
+            if (setting.objectID == 0) { win.Tanks.Add(s); }
             gameObject.SetActive(false);
         }
         else
@@ -109,7 +109,7 @@ public class Plane : MonoBehaviour, IDamaget
             {
                 for (int i = 0; i < valueOfX; i++)
                 {
-                    if (såtting.x[i].y[j])
+                    if (setting.x[i].y[j])
                         localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - valueOfX / 2 + 0.5f) * _size,
                                                                                        (j - valueOfY / 2 + 0.5f) * _size));
                 }

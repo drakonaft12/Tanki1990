@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour
 
     public GameObject Spawn(int ID, Vector3 position)
     {
-        //todo Ќјйти лучше find
+
         GameObject item = allSpawnObjects[ID].Find((value) => !value.activeSelf);
         if (item != null)
         {
@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
 
     public GameObject Spawn(GameObject gameObject, Vector3 position)
     {
-        //todo Ќјйти лучше find
+
         int ID = -1;
         foreach (var item1 in dictionaryPrefabs)
         {
@@ -66,7 +66,7 @@ public class Spawner : MonoBehaviour
 
     public T Spawn<T>(int ID, Vector3 position)
     {
-        //todo Ќјйти лучше find
+
         GameObject item = allSpawnObjects[ID].Find((value) => !value.activeSelf);
         if (item != null)
         {

@@ -7,7 +7,7 @@ public class ToggleForm : MonoBehaviour
 {
     private Toggle toggle;
     private Vector2Int vector;
-    public SettingPlane _såtting;
+    public SettingPlane _setting;
 
     public Vector2Int Vector { get => vector; set => vector = value; }
 
@@ -25,7 +25,7 @@ public class ToggleForm : MonoBehaviour
 
     public void Click(bool b)
     {
-        _såtting.x[vector.x].y[vector.y] = b;
+        _setting.x[vector.x].y[vector.y] = b;
     }
 
     private void Awake()
@@ -36,7 +36,7 @@ public class ToggleForm : MonoBehaviour
     }
     private void Start()
     {
-        _såtting.x[vector.x].y[vector.y] = toggle.isOn;
+        _setting.x[vector.x].y[vector.y] = toggle.isOn;
         transform.localScale = Vector3.one;
     }
 

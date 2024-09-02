@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class ButtonOfMatria : MonoBehaviour
 {
     [SerializeField] BlockSetting settingBlock;
-    [SerializeField] SettingPlane _såtting;
+    [SerializeField] SettingPlane _setting;
 
     public BlockSetting SettingBlock { set => settingBlock = value; }
-    public SettingPlane Såtting { set => _såtting = value; }
+    public SettingPlane Setting { set => _setting = value; }
 
     public void Init()
     {
@@ -22,10 +22,10 @@ public class ButtonOfMatria : MonoBehaviour
 
     public void OnClick()
     {
-        _såtting.material = settingBlock.material;
-        _såtting.damage = settingBlock.damage;
-        _såtting.layer = settingBlock.layer;
-        _såtting.Object = settingBlock.Object;
+        _setting.material = settingBlock.material;
+        _setting.damage = settingBlock.damage;
+        _setting.layer = settingBlock.layer;
+        _setting.Object = settingBlock.Object;
     }
 
 }

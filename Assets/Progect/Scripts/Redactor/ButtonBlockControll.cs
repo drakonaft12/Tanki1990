@@ -15,7 +15,7 @@ public class ButtonBlockControll : MonoBehaviour
             var button = spawner.Spawn<ButtonOfMatria>(2,Vector3.zero);
             button.transform.SetParent(transform);
             button.SettingBlock = setting;
-            button.Såtting = paint;
+            button.Setting = paint;
             button.Init();
         }
     }

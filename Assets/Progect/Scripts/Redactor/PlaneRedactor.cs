@@ -5,64 +5,64 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter),typeof(MeshRenderer))]
 public class PlaneRedactor : MonoBehaviour
 {
-    SettingPlaneWWW _såtting;
+    SettingPlaneWWW _setting;
     MeshFilter _filter;
     MeshRenderer _renderer;
     Vector3 _position;
     Dictionary<Vector2Int, Vector2> localPointBlocks;
 
-    public SettingPlaneWWW Setting  { get => _såtting; }
+    public SettingPlaneWWW Setting  { get => _setting; }
     private void Awake()
     {
         _filter = GetComponent<MeshFilter>();
         _renderer = GetComponent<MeshRenderer>();   
     }
-    public void Create(SettingPlane såtting) 
+    public void Create(SettingPlane setting) 
     {
         _position = transform.position;
-        _såtting = såtting.ToWWW(_position);
-        _renderer.material = såtting.material;
-        transform.localScale = new Vector3(såtting.size*såtting.sizeVox.x, såtting.size * såtting.sizeVox.y, 1);
+        _setting = setting.ToWWW(_position);
+        _renderer.material = setting.material;
+        transform.localScale = new Vector3(setting.size*setting.sizeVox.x, setting.size * setting.sizeVox.y, 1);
 
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
-        for (int j = 0; j < såtting.sizeVox.y; j++)
+        for (int j = 0; j < setting.sizeVox.y; j++)
         {
-            for (int i = 0; i < såtting.sizeVox.x; i++)
+            for (int i = 0; i < setting.sizeVox.x; i++)
             {
-                if (såtting.x[i].y[j])
-                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - såtting.sizeVox.x / 2 + 0.5f) * såtting.size,
-                                                                                   (j - såtting.sizeVox.y / 2 + 0.5f) * såtting.size));
+                if (setting.x[i].y[j])
+                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - setting.sizeVox.x / 2 + 0.5f) * setting.size,
+                                                                                   (j - setting.sizeVox.y / 2 + 0.5f) * setting.size));
             }
         }
-        PaintMesh(såtting.sizeVox.x, såtting.sizeVox.y, såtting.size);
+        PaintMesh(setting.sizeVox.x, setting.sizeVox.y, setting.size);
     }
 
     public void UpdatePosition()
     {
-        _såtting.positionX = (int)transform.position.x;
-        _såtting.positionY = (int)transform.position.y;
+        _setting.positionX = (int)transform.position.x;
+        _setting.positionY = (int)transform.position.y;
     }
 
-    public void CreateWWW(SettingPlaneWWW såtting,Material material)
+    public void CreateWWW(SettingPlaneWWW setting,Material material)
     {
         _position = transform.position;
-        _såtting = såtting;
+        _setting = setting;
         _renderer.material = material;
-        transform.localScale = new Vector3(såtting.size * såtting.sizeVoxX, såtting.size * såtting.sizeVoxY, 1);
+        transform.localScale = new Vector3(setting.size * setting.sizeVoxX, setting.size * setting.sizeVoxY, 1);
 
         localPointBlocks = new Dictionary<Vector2Int, Vector2>();
 
-        for (int j = 0; j < såtting.sizeVoxY; j++)
+        for (int j = 0; j < setting.sizeVoxY; j++)
         {
-            for (int i = 0; i < såtting.sizeVoxX; i++)
+            for (int i = 0; i < setting.sizeVoxX; i++)
             {
-                if (såtting.x[i].y[j])
-                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - såtting.sizeVoxX / 2 + 0.5f) * såtting.size,
-                                                                                   (j - såtting.sizeVoxY / 2 + 0.5f) * såtting.size));
+                if (setting.x[i].y[j])
+                    localPointBlocks.Add(new Vector2Int(i + 1, j + 1), new Vector2((i - setting.sizeVoxX / 2 + 0.5f) * setting.size,
+                                                                                   (j - setting.sizeVoxY / 2 + 0.5f) * setting.size));
             }
         }
-        PaintMesh(såtting.sizeVoxX, såtting.sizeVoxY, såtting.size);
+        PaintMesh(setting.sizeVoxX, setting.sizeVoxY, setting.size);
     }
     private void Update()
     {

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Redactor : MonoBehaviour
 {
     [SerializeField] Spawner _spawner;
-    [SerializeField] SettingPlane _såtting;
+    [SerializeField] SettingPlane _setting;
     PlaneRedactor[][] planes;
     [SerializeField] Vector2Int size;
     [SerializeField] TMP_InputField inputX;
@@ -22,7 +22,7 @@ public class Redactor : MonoBehaviour
     public TextAsset defaultMap;
 
     DataSave save;
-    public SettingPlane SåtSåttingPlanå { get => _såtting; }
+    public SettingPlane SetSettingPlane { get => _setting; }
 
     private void Awake()
     {
@@ -234,7 +234,7 @@ public class Redactor : MonoBehaviour
                 if (planes[vector.x][vector.y] == null)
                 {
                     planes[vector.x][vector.y] = _spawner.Spawn<PlaneRedactor>(0, v);
-                    planes[vector.x][vector.y].Create(_såtting);
+                    planes[vector.x][vector.y].Create(_setting);
                     saveAllBlock.settingBlocks.Add(planes[vector.x][vector.y].Setting);
                 }
                 else
@@ -242,7 +242,7 @@ public class Redactor : MonoBehaviour
                     saveAllBlock.settingBlocks.Remove(planes[vector.x][vector.y].Setting);
                     planes[vector.x][vector.y].gameObject.SetActive(false);
                     planes[vector.x][vector.y] = _spawner.Spawn<PlaneRedactor>(0, v);
-                    planes[vector.x][vector.y].Create(_såtting);
+                    planes[vector.x][vector.y].Create(_setting);
                     saveAllBlock.settingBlocks.Add(planes[vector.x][vector.y].Setting);
                 }
             }
