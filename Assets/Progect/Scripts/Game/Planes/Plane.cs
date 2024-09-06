@@ -98,7 +98,7 @@ public class Plane : MonoBehaviour, IDamaget
             {
                 set.SetSpawner = spawner;
             }
-            if (setting.objectID == 0) { win.Tanks.Add(s); }
+            if (setting.objectID == 0|| setting.objectID == 3|| setting.objectID == 4) { win.Tanks.Add(s); }
             gameObject.SetActive(false);
         }
         else

@@ -1317,6 +1317,10 @@ MonoBehaviour:
       value: {fileID: 6537874645184624613, guid: 6ef9e63a3edc72c41b2ff0b8391b6b13, type: 3}
     - key: 5
       value: {fileID: 8556412011768926197, guid: 1e7803110ba76fe4c949ebc263a1bcc3, type: 3}
+    - key: 6
+      value: {fileID: 1148595170478516072, guid: c2478c3876828574dbc1f0e2bbfa1ec0, type: 3}
+    - key: 7
+      value: {fileID: 1148595170478516072, guid: 02064c84445375a44adf3cfa3c45b33a, type: 3}
 --- !u!4 &1731200173
 Transform:
   m_ObjectHideFlags: 0

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7850f695b9559249bf3599cb1319684, type: 3}
-  m_Name: Playr
+  m_Name: MobFast
   m_EditorClassIdentifier: 
-  spriteButton: {fileID: 21300000, guid: ddefe2cd796dbb641aaf38ed476780e9, type: 3}
-  color: {r: 1, g: 0.972549, b: 0.3647059, a: 1}
-  material: {fileID: 2100000, guid: 54e5d7dc3d14ee04ba560883283f572f, type: 2}
+  spriteButton: {fileID: 21300000, guid: 64dddd6da7dd88242a544146bc7f25c7, type: 3}
+  color: {r: 1, g: 0.13725491, b: 0.13725491, a: 1}
+  material: {fileID: 2100000, guid: e057d554cf19d5d4491329bf565bd85c, type: 2}
   damage: 5
   layer:
     serializedVersion: 2
-    m_Bits: 256
-  Object: {fileID: 45100862117072815, guid: 288861d5637dc264d95440bc685b8d9c, type: 3}
+    m_Bits: 512
+  Object: {fileID: 1148595170478516072, guid: 02064c84445375a44adf3cfa3c45b33a, type: 3}

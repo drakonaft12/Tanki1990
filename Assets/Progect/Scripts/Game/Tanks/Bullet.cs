@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour, IDamaget
     float _velosity = 8;
     float timer = 0;
     GameObject _parent;
+    int _layer;
 
     bool isDestroi = false;
 
@@ -18,6 +19,8 @@ public class Bullet : MonoBehaviour, IDamaget
         _move = move.normalized;
         _damage = damage;
         _parent = parent;
+        _layer = parent.layer;
+        if (_layer == 8) { _layer = 9; } else { _layer = 8; }
     }
 
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
@@ -32,13 +35,13 @@ public class Bullet : MonoBehaviour, IDamaget
     void Update()
     {
         RaycastHit2D[] rrt = new RaycastHit2D[2];
-        var hitcount = gameObject.GetComponent<CircleCollider2D>().Raycast(_move, rrt, Time.deltaTime * _velosity, 1 | 1 << 6 | 1 << 7 | 1 << 8);
+        var hitcount = gameObject.GetComponent<CircleCollider2D>().Raycast(_move, rrt, Time.deltaTime * _velosity, 1 | 1 << 6 | 1 << 7 | 1 << _layer);
         if (hitcount != 0)
         {
-            
+
             foreach (var hit in rrt)
             {
-                
+
                 if (hit.collider.gameObject != this)
                 {
                     var colliders = Physics2D.OverlapBoxAll(hit.point, new Vector2(0.9f, 0.1f), _move.x != 0 ? 90 : 0);
@@ -57,8 +60,8 @@ public class Bullet : MonoBehaviour, IDamaget
 
         }
         transform.position += (Vector3)_move * Time.deltaTime * _velosity;
-        if (timer > 1.5f) GetComponent<CircleCollider2D>().isTrigger = true;
-        if (timer >5f) isDestroi = true;
+        if (timer > 0.5f) GetComponent<CircleCollider2D>().isTrigger = true;
+        if (timer > 5f) isDestroi = true;
         timer += Time.deltaTime;
         if (isDestroi)
             gameObject.SetActive(false);

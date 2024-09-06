@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644f069abc3b5b143adb9ddf7d1a7de0, type: 3}
   m_Name: PaintBlockSetting
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 303ec15f3ec48d54abf4c8a5d41beea9, type: 2}
+  material: {fileID: 2100000, guid: 1dbe33be1dd3ea740a2e96b7300bdcd1, type: 2}
   damage: 5
   sizeVox: {x: 4, y: 4}
   x:
@@ -23,8 +23,8 @@ MonoBehaviour:
   size: 0.25
   layer:
     serializedVersion: 2
-    m_Bits: 1
-  Object: {fileID: 0}
+    m_Bits: 512
+  Object: {fileID: 1148595170478516072, guid: c2478c3876828574dbc1f0e2bbfa1ec0, type: 3}
   materials:
   - {fileID: 2100000, guid: 01281e5bdd9119549b28e8d159f4c651, type: 2}
   - {fileID: 2100000, guid: 303ec15f3ec48d54abf4c8a5d41beea9, type: 2}
@@ -33,7 +33,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8b6bdc0bfcac3fc479c12b584112bb42, type: 2}
   - {fileID: 2100000, guid: 54e5d7dc3d14ee04ba560883283f572f, type: 2}
   - {fileID: 2100000, guid: a880081edef25c14186c367e003a1c0c, type: 2}
+  - {fileID: 2100000, guid: 1dbe33be1dd3ea740a2e96b7300bdcd1, type: 2}
+  - {fileID: 2100000, guid: e057d554cf19d5d4491329bf565bd85c, type: 2}
   objects:
   - {fileID: 1148595170478516072, guid: 6a16e754c1a872c439f35c5e879d37ce, type: 3}
   - {fileID: 45100862117072815, guid: 288861d5637dc264d95440bc685b8d9c, type: 3}
   - {fileID: 8556412011768926197, guid: 1e7803110ba76fe4c949ebc263a1bcc3, type: 3}
+  - {fileID: 1148595170478516072, guid: c2478c3876828574dbc1f0e2bbfa1ec0, type: 3}
+  - {fileID: 1148595170478516072, guid: 02064c84445375a44adf3cfa3c45b33a, type: 3}

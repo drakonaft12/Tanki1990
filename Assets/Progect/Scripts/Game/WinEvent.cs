@@ -23,6 +23,7 @@ public class WinEvent : MonoBehaviour
             if(tank.activeSelf == false)
             {
                 value++;
+                print(tanks.Count-value);
             }
         }
 

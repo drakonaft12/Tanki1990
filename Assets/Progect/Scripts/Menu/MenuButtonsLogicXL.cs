@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuButtonsLogic : MonoBehaviour
+public class MenuButtonsLogicXL : MonoBehaviour
 {
     [SerializeField] private Button startGameButton;
     [SerializeField] private Button redactorButton;

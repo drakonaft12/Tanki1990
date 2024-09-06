@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd6bde633c660cc43ac2fc9568d16fe4, type: 3}
-  m_Name: DefaultTank
+  m_Name: BigTank
   m_EditorClassIdentifier: 
-  tankSprite: {fileID: 21300000, guid: ddefe2cd796dbb641aaf38ed476780e9, type: 3}
-  moveSpeed: 3
-  damage: 5
-  HP: 5
+  tankSprite: {fileID: 21300000, guid: e38a9263cd3382646b4523bed8f56188, type: 3}
+  moveSpeed: 1
+  damage: 20
+  HP: 30
   ID_Bullet: 0
+  colliderSize: {x: 0.9, y: 0.9}

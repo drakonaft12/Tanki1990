@@ -9,6 +9,7 @@ public class Tank : MonoBehaviour, IDamaget
 {
     MoveBehavoir _moveBehavoir;
     ActionBehavior _actionBehavior;
+    BoxCollider2D boxCollider2D;
     Spawner _spawner;
     Action action;
     int HP = 5;
@@ -20,6 +21,11 @@ public class Tank : MonoBehaviour, IDamaget
     {
         _actionBehavior.Fire();
     }
+
+    private void Awake()
+    {
+        boxCollider2D = GetComponent<BoxCollider2D>();
+    }
     public void Craete(SettingsPawn settings, Spawner spawner)
     {
         _moveBehavoir = gameObject.AddComponent<MoveBehavoir>();
@@ -28,7 +34,9 @@ public class Tank : MonoBehaviour, IDamaget
         _moveBehavoir.Create(settings);
         _actionBehavior.Create(settings, spawner);
 
-        HP = 5;
+        HP = settings.HP;
+
+        boxCollider2D.size = settings.colliderSize;
 
         _spawner = spawner;
 
