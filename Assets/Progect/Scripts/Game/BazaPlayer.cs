@@ -8,6 +8,8 @@ public class BazaPlayer : MonoBehaviour, IDamaget
 {
     private int HP = 5;
 
+    int IDamaget.HP { get => HP; }
+
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
     {
         HP -= damage;

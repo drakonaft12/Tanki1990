@@ -16,6 +16,9 @@ public class Tank : MonoBehaviour, IDamaget
     float time = 0;
 
     public Vector2 MovePawn { set { _moveBehavoir.MoveInput = value; _actionBehavior._Move = value; } }
+    public ActionBehavior ActionBehavior => _actionBehavior;
+
+    int IDamaget.HP => HP;
 
     public void Fire()
     {

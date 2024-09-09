@@ -23,6 +23,8 @@ public class Plane : MonoBehaviour, IDamaget
     int _damageArmor = 5;
     bool _isUpdat = false;
 
+    public int HP => _damageArmor;
+
     public void Damage(Vector2 pointDamage, Vector2 normal, int damage)
     {
         if (damage >= _damageArmor)

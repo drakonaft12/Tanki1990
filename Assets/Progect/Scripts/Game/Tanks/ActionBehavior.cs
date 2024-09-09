@@ -13,7 +13,7 @@ public class ActionBehavior : MonoBehaviour
 
 
     public Vector2 _Move { set { if(value!=Vector2.zero) _move = value; } }
-    public int Damage { set { _damage = value; } }
+    public int Damage {get { return _damage; } set { _damage = value; } }
     public void Create(SettingsPawn settings, Spawner spawner)
     {
         ID_Bullet = settings.ID_Bullet;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public class Bot : MonoBehaviour,ISetSpawner
+public class Bot : MonoBehaviour, ISetSpawner
 {
     [SerializeField] SettingsPawn _settingsPawn;
     [SerializeField] Tank _player;
@@ -13,6 +13,7 @@ public class Bot : MonoBehaviour,ISetSpawner
     Vector2 _move;
     Vector3 _position;
     float t = 0;
+    int randSpeegBran;
     public Spawner SetSpawner { set { _spawner = value; } }
     void Start()
     {
@@ -24,6 +25,7 @@ public class Bot : MonoBehaviour,ISetSpawner
         _player.Craete(_settingsPawn, _spawner);
         _move = Vector2.down;
         _position = transform.position;
+        randSpeegBran = (int)(Random.Range(0.8f, 1.5f)*500);
         IsStop();
     }
 
@@ -32,8 +34,9 @@ public class Bot : MonoBehaviour,ISetSpawner
 
         while (isWork)
         {
-            if (Random.Range(0, 5) == 0) { _player.Fire(); }
-            if (_position == transform.position || t > Random.Range(1,5))
+            RaycastHit2D hit2D = Physics2D.Raycast(transform.position, _move, 30, 1 | 1 << 6 | 1 << 7 | 1 << 8);
+            if (hit2D.collider.TryGetComponent<IDamaget>(out var damaget) && damaget.HP<=_player.ActionBehavior.Damage) { _player.Fire(); Debug.DrawRay(transform.position, _move * 30, Color.red, 0.5f); }
+            if (_position == transform.position || t > Random.Range(1, 5))
             {
                 int i = Random.Range(-1, 2);
                 switch (i)
@@ -53,7 +56,7 @@ public class Bot : MonoBehaviour,ISetSpawner
                 t = 0;
             }
             _position = transform.position;
-            await Task.Delay(500);
+            await Task.Delay(randSpeegBran);
         }
     }
 
@@ -65,7 +68,7 @@ public class Bot : MonoBehaviour,ISetSpawner
     // Update is called once per frame
     void Update()
     {
-            _player.MovePawn = _move;
+        _player.MovePawn = _move;
         t += Time.deltaTime;
     }
 }

@@ -13,6 +13,8 @@ public class Bullet : MonoBehaviour, IDamaget
 
     bool isDestroi = false;
 
+    public int HP => 1;
+
     public void Create(Vector2 move, int damage, GameObject parent)
     {
         isDestroi = false;
